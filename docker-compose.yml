@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  # Gateway
+  nginx-gateway:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx-gateway
+    ports:
+      - 8080:80
+
+  # Users service
+  users-service:
+    build:
+      dockerfile: Dockerfile
+      context: ./users-service
+    volumes:
+      - /app/node_modules
+      - ./users-service:/app
+    environment:
+       SERVER_PORT: 8081
+       MONGO_URI: 'mongodb://mongo:27017'
+       REDIS_URI: 'redis://redis:6379'
+    ports:
+      - 9229:9229 #debug port
+
+  # Users service MongoDB
+  mongo:
+    container_name: mongo
+    image: mongo:4.4.2
+    restart: always
+    volumes:
+      - ./users-service/data:/data/db
+
+  # Users service Redis
+  redis:
+    image: redis:6.0.9
+    restart: always
+
+  # Tools
+  mongo-express:
+    image: mongo-express:0.54.0
+    restart: always
+    ports:
+      - 9999:8081
