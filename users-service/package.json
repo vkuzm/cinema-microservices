@@ -2,17 +2,27 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.2.1",
     "mongoose": "^5.11.7",
     "mongoose-sequence": "^5.3.0",
     "nodemon": "^2.0.6",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "request": "^2.88.2",
+    "sinon": "^9.2.2"
   },
   "scripts": {
-    "dev": "nodemon index.js",
-    "debug": "nodemon --inspect=0.0.0.0 .",
-    "start": "node index.js"
+    "dev": "nodemon app/index.js",
+    "debug": "nodemon --inspect=0.0.0.0 app/index.js",
+    "start": "node app/index.js",
+    "test": "mocha --reporter=spec --recursive 'test/**/*.spec.js'"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^14.14.14",
+    "nyc": "^15.1.0"
   }
 }

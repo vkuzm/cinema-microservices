@@ -1,4 +1,4 @@
-const redisService = require('../services/RedisService');
+const redisService = require('./RedisService');
 const redisClient = redisService.redisClient();
 const Response = require('../models/Response');
 const MessageConstants = require('../MessageConstants');

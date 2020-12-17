@@ -15,7 +15,7 @@ const login = (userModel) => (req, res) => {
       res.status(201).send(response);
     })
     .catch((error) => {
-      res.send(error);
+      res.status(200).send(error);
     });
 };
 
@@ -27,13 +27,10 @@ const handleSignIn = async (userModel, data) => {
   }
 
   try {
-    const user = await userModel.findOne({ email: email }).lean();
-    if (!user) {
-      return emailPasswordInvalidError();
-    }
+    const hashedPassword = bcrypt.hash(password, Constants.PASSWORD_SALT);
+    const user = await userModel.findOne({ email: email, password: hashedPassword }).lean();
 
-    const isMatched = bcrypt.compareSync(password, user.password);
-    if (isMatched) {
+    if (user) {
       return saveToken(user.userId, user.email);
     } else {
       return emailPasswordInvalidError();
