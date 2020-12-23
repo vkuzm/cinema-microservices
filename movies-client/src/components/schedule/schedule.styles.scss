@@ -1,0 +1,38 @@
+.schedule {
+  background-color: #f6f1e4;
+  padding: 48px 0 8px;
+}
+.schedule__heading {
+  font-size: 38px;
+  line-height: 46px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+.schedule__dates {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+  flex-wrap: nowrap;
+}
+.schedule__dates li {
+  margin-right: 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(34, 34, 34, 0.4);
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-bottom: -1px;
+  position: relative;
+  flex-shrink: 0;
+  transition: 0.25s;
+}
+.schedule__dates li.selected {
+  color: #222;
+  border-bottom-color: #222;
+}
+.schedule__dates li:hover {
+  color: #222;
+}

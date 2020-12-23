@@ -7,11 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CinemaRepository extends CrudRepository<Cinema, String> {
-  List<Cinema> findAllByInRentalIsTrue();
-
-  Optional<Cinema> findByMovieId(String movieId);
 
   List<Cinema> findAllByUpcomingIsTrue();
 
   List<Cinema> findAllByOrderByWatchedDesc(Pageable pageable);
+
+  Optional<Cinema> findByMovieId(String movieId);
 }

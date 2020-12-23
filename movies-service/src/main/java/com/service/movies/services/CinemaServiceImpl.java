@@ -24,12 +24,6 @@ public class CinemaServiceImpl implements CinemaService {
   }
 
   @Override
-  public List<CinemaDto> getRentalMovies() {
-    final List<Cinema> cinemaList = cinemaRepository.findAllByInRentalIsTrue();
-    return convertToCinemaDtoList(cinemaList);
-  }
-
-  @Override
   public List<CinemaDto> getUpcomingMovies() {
     final List<Cinema> cinemaList = cinemaRepository.findAllByUpcomingIsTrue();
     return convertToCinemaDtoList(cinemaList);
@@ -37,7 +31,8 @@ public class CinemaServiceImpl implements CinemaService {
 
   @Override
   public List<CinemaDto> getTopMovies() {
-    final List<Cinema> cinemaList = cinemaRepository.findAllByOrderByWatchedDesc(PageRequest.of(0,10));
+    final List<Cinema> cinemaList = cinemaRepository
+        .findAllByOrderByWatchedDesc(PageRequest.of(0, 10));
     return convertToCinemaDtoList(cinemaList);
   }
 
@@ -48,7 +43,8 @@ public class CinemaServiceImpl implements CinemaService {
 
     if (cinema.isPresent()) {
       final Movie movie = tmdbMovies.getMovie(cinema.get().getMovieId());
-      return Optional.of(new CinemaDto(cinema.get(), movie));
+      final CinemaDto cinemaDto = convertToCinemaDto(cinema.get(), movie);
+      return Optional.of(cinemaDto);
     }
     return Optional.empty();
   }
@@ -59,8 +55,20 @@ public class CinemaServiceImpl implements CinemaService {
 
     for (Cinema cinema : cinemaList) {
       final Movie movie = tmdbMovies.getMovie(cinema.getMovieId());
-      cinemaDtoList.add(new CinemaDto(cinema, movie));
+      final CinemaDto cinemaDto = convertToCinemaDto(cinema, movie);
+      cinemaDtoList.add(cinemaDto);
     }
     return cinemaDtoList;
+  }
+
+  private CinemaDto convertToCinemaDto(Cinema cinema, Movie movie) {
+    final CinemaDto cinemaDto = new CinemaDto();
+    cinemaDto.setMovieId(cinema.getId());
+    cinemaDto.setDateStart(cinema.getDateStart());
+    cinemaDto.setDateEnd(cinema.getDateEnd());
+    cinemaDto.setFormat(cinema.getFormat().text());
+    cinemaDto.setWatched(cinema.getWatched());
+    cinemaDto.setMovie(movie);
+    return cinemaDto;
   }
 }

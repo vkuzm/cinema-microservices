@@ -6,8 +6,6 @@ import java.util.Optional;
 
 public interface CinemaService {
 
-  List<CinemaDto> getRentalMovies();
-
   List<CinemaDto> getUpcomingMovies();
 
   List<CinemaDto> getTopMovies();

@@ -21,21 +21,45 @@ services:
       - ./users-service:/app
     environment:
        SERVER_PORT: 8081
-       MONGO_URI: 'mongodb://mongo:27017'
-       REDIS_URI: 'redis://redis:6379'
+       MONGO_URI: 'mongodb://mongo-users:27017'
+       REDIS_URI: 'redis://redis-users:6379'
     ports:
       - 9229:9229 #debug port
 
+  # Movies service
+  movies-service:
+   build:
+     dockerfile: Dockerfile
+     context: ./movies-service
+   environment:
+     SERVER_PORT: 8082
+     MONGO_URL: mongo-movies
+     MONGO_PORT: 27017
+   volumes:
+     - ./movies-service/target/movies-service.jar:/app/movies-service.jar
+
   # Users service MongoDB
-  mongo:
-    container_name: mongo
+  mongo-users:
     image: mongo:4.4.2
     restart: always
     volumes:
       - ./users-service/data:/data/db
 
+  # Movies service MongoDB
+  mongo-movies:
+    image: mongo:4.4.2
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    restart: always
+    volumes:
+      - ./movies-service/data:/data/db
+    ports:
+      - 27017:27017
+
+
   # Users service Redis
-  redis:
+  redis-users:
     image: redis:6.0.9
     restart: always
 
@@ -45,3 +69,5 @@ services:
     restart: always
     ports:
       - 9999:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo-movies

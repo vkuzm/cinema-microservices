@@ -1,14 +1,16 @@
 package com.service.movies.dto;
 
-import com.service.movies.domain.Cinema;
 import com.vkuzmenko.tmdbapi.models.Movie;
-import lombok.AllArgsConstructor;
+import java.time.LocalDate;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class CinemaDto {
 
-  private Cinema cinema;
+  private String movieId;
+  private String format;
+  private LocalDate dateStart;
+  private LocalDate dateEnd;
+  private int watched;
   private Movie movie;
 }

@@ -30,11 +30,6 @@ public class MoviesController {
     return ResponseEntity.noContent().build();
   }
 
-  @GetMapping("/rental")
-  public ResponseEntity<List<CinemaDto>> getMovies() {
-    return ResponseEntity.ok(moviesService.getRentalMovies());
-  }
-
   @GetMapping("/upcoming")
   public ResponseEntity<List<CinemaDto>> getUpcomingMovies() {
     return ResponseEntity.ok(moviesService.getUpcomingMovies());
