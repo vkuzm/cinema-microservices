@@ -8,10 +8,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @Document(collection = "scheduler")
-public class Scheduler {
+public class Schedule {
 
   @Id
   private String id;
   private String day;
-  private List<SchedulerMovie> movies = new ArrayList<>();
+  private List<ScheduleMovie> movies = new ArrayList<>();
 }

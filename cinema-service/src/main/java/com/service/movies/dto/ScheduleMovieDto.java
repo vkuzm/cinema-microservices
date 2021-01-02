@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class SchedulerMovieDto {
+public class ScheduleMovieDto {
 
   private String movieId;
   private String title;

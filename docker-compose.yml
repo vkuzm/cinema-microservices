@@ -26,17 +26,15 @@ services:
     ports:
       - 9229:9229 #debug port
 
-  # Movies service
-  movies-service:
+  # Cinema service
+  cinema-service:
    build:
      dockerfile: Dockerfile
-     context: ./movies-service
+     context: ./cinema-service
    environment:
      SERVER_PORT: 8082
-     MONGO_URL: mongo-movies
+     MONGO_URL: mongo-cinema
      MONGO_PORT: 27017
-   volumes:
-     - ./movies-service/target/movies-service.jar:/app/movies-service.jar
 
   # Users service MongoDB
   mongo-users:
@@ -45,15 +43,15 @@ services:
     volumes:
       - ./users-service/data:/data/db
 
-  # Movies service MongoDB
-  mongo-movies:
+  # Cinema service MongoDB
+  mongo-cinema:
     image: mongo:4.4.2
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
     restart: always
     volumes:
-      - ./movies-service/data:/data/db
+      - ./cinema-service/data:/data/db
     ports:
       - 27017:27017
 
@@ -70,4 +68,4 @@ services:
     ports:
       - 9999:8081
     environment:
-      ME_CONFIG_MONGODB_SERVER: mongo-movies
+      ME_CONFIG_MONGODB_SERVER: mongo-cinema

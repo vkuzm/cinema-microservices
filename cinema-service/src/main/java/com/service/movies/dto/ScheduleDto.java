@@ -5,8 +5,8 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class SchedulerDto {
+public class ScheduleDto {
 
   private String day;
-  private List<SchedulerMovieDto> movies = new ArrayList<>();
+  private List<ScheduleMovieDto> movies = new ArrayList<>();
 }

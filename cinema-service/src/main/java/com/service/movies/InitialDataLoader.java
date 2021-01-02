@@ -1,12 +1,12 @@
 package com.service.movies;
 
 import com.service.movies.domain.Cinema;
-import com.service.movies.domain.Scheduler;
-import com.service.movies.domain.SchedulerMovie;
+import com.service.movies.domain.Schedule;
+import com.service.movies.domain.ScheduleMovie;
 import com.service.movies.domain.Session;
 import com.service.movies.enums.MovieFormat;
 import com.service.movies.repositories.CinemaRepository;
-import com.service.movies.repositories.SchedulerRepository;
+import com.service.movies.repositories.ScheduleRepository;
 import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,21 +17,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class InitialDataLoader implements CommandLineRunner {
 
   private final CinemaRepository cinemaRepository;
-  private final SchedulerRepository schedulerRepository;
+  private final ScheduleRepository scheduleRepository;
 
-  public InitialDataLoader(CinemaRepository cinemaRepository, SchedulerRepository schedulerRepository) {
+  public InitialDataLoader(CinemaRepository cinemaRepository, ScheduleRepository scheduleRepository) {
     this.cinemaRepository = cinemaRepository;
-    this.schedulerRepository = schedulerRepository;
+    this.scheduleRepository = scheduleRepository;
   }
 
   @Override
   public void run(String... args) {
-    initScheduler();
+    initSchedule();
     initCinema();
   }
 
-  private void initScheduler() {
-    schedulerRepository.deleteAll();
+  private void initSchedule() {
+    scheduleRepository.deleteAll();
 
     Session session1 = new Session();
     session1.setSessionId("111");
@@ -43,37 +43,37 @@ public class InitialDataLoader implements CommandLineRunner {
     session2.setStartTime("17:00");
     session2.setEndTime("19:00");
 
-    SchedulerMovie movie1 = new SchedulerMovie();
+    ScheduleMovie movie1 = new ScheduleMovie();
     movie1.setMovieId("284053");
     movie1.getSessions().add(session1);
     movie1.getSessions().add(session2);
 
-    SchedulerMovie movie2 = new SchedulerMovie();
+    ScheduleMovie movie2 = new ScheduleMovie();
     movie2.setMovieId("315635");
     movie2.getSessions().add(session1);
     movie2.getSessions().add(session2);
 
-    SchedulerMovie movie3 = new SchedulerMovie();
+    ScheduleMovie movie3 = new ScheduleMovie();
     movie3.setMovieId("283995");
     movie3.getSessions().add(session1);
     movie3.getSessions().add(session2);
 
-    SchedulerMovie movie4 = new SchedulerMovie();
+    ScheduleMovie movie4 = new ScheduleMovie();
     movie4.setMovieId("263115");
     movie4.getSessions().add(session1);
     movie4.getSessions().add(session2);
 
-    Scheduler scheduler = new Scheduler();
+    Schedule scheduler = new Schedule();
     scheduler.setDay("monday");
     scheduler.getMovies().add(movie1);
     scheduler.getMovies().add(movie2);
 
-    Scheduler scheduler2 = new Scheduler();
+    Schedule scheduler2 = new Schedule();
     scheduler2.setDay("tuesday");
     scheduler2.getMovies().add(movie1);
 
-    schedulerRepository.save(scheduler);
-    schedulerRepository.save(scheduler2);
+    scheduleRepository.save(scheduler);
+    scheduleRepository.save(scheduler2);
   }
 
   private void initCinema() {

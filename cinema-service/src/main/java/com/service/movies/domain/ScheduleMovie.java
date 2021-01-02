@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class SchedulerMovie {
+public class ScheduleMovie {
 
   private String movieId;
   private MovieFormat format;
