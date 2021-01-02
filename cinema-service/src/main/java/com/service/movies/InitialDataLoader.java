@@ -4,7 +4,6 @@ import com.service.movies.domain.Cinema;
 import com.service.movies.domain.Schedule;
 import com.service.movies.domain.ScheduleMovie;
 import com.service.movies.domain.Session;
-import com.service.movies.enums.MovieFormat;
 import com.service.movies.repositories.CinemaRepository;
 import com.service.movies.repositories.ScheduleRepository;
 import java.time.LocalDate;
@@ -27,90 +26,230 @@ public class InitialDataLoader implements CommandLineRunner {
   @Override
   public void run(String... args) {
     initSchedule();
-    initCinema();
+    initTopWatchedCinema();
+    initUpcomingCinema();
   }
 
   private void initSchedule() {
     scheduleRepository.deleteAll();
 
-    Session session1 = new Session();
-    session1.setSessionId("111");
-    session1.setStartTime("15:00");
-    session1.setEndTime("17:00");
-
-    Session session2 = new Session();
-    session2.setSessionId("222");
-    session2.setStartTime("17:00");
-    session2.setEndTime("19:00");
-
     ScheduleMovie movie1 = new ScheduleMovie();
     movie1.setMovieId("284053");
-    movie1.getSessions().add(session1);
-    movie1.getSessions().add(session2);
+    movie1.getSessions().add(createSession("09:00"));
+    movie1.getSessions().add(createSession("16:20"));
+    movie1.getSessions().add(createSession("22:10"));
 
     ScheduleMovie movie2 = new ScheduleMovie();
     movie2.setMovieId("315635");
-    movie2.getSessions().add(session1);
-    movie2.getSessions().add(session2);
+    movie2.getSessions().add(createSession("11:00"));
+    movie2.getSessions().add(createSession("18:30"));
+    movie2.getSessions().add(createSession("00:00"));
 
     ScheduleMovie movie3 = new ScheduleMovie();
     movie3.setMovieId("283995");
-    movie3.getSessions().add(session1);
-    movie3.getSessions().add(session2);
+    movie3.getSessions().add(createSession("10:10"));
+    movie3.getSessions().add(createSession("20:00"));
 
     ScheduleMovie movie4 = new ScheduleMovie();
     movie4.setMovieId("263115");
-    movie4.getSessions().add(session1);
-    movie4.getSessions().add(session2);
+    movie4.getSessions().add(createSession("12:00"));
+    movie4.getSessions().add(createSession("21:00"));
 
-    Schedule scheduler = new Schedule();
-    scheduler.setDay("monday");
-    scheduler.getMovies().add(movie1);
-    scheduler.getMovies().add(movie2);
+    ScheduleMovie movie5 = new ScheduleMovie();
+    movie5.setMovieId("246655");
+    movie5.getSessions().add(createSession("13:30"));
+    movie5.getSessions().add(createSession("17:00"));
 
-    Schedule scheduler2 = new Schedule();
-    scheduler2.setDay("tuesday");
-    scheduler2.getMovies().add(movie1);
+    ScheduleMovie movie6 = new ScheduleMovie();
+    movie6.setMovieId("271110");
+    movie6.getSessions().add(createSession("12:00"));
+    movie6.getSessions().add(createSession("21:00"));
 
-    scheduleRepository.save(scheduler);
-    scheduleRepository.save(scheduler2);
+    ScheduleMovie movie7 = new ScheduleMovie();
+    movie7.setMovieId("293660");
+    movie7.getSessions().add(createSession("10:10"));
+    movie7.getSessions().add(createSession("23:00"));
+
+    ScheduleMovie movie8 = new ScheduleMovie();
+    movie8.setMovieId("166424");
+    movie8.getSessions().add(createSession("15:00"));
+    movie8.getSessions().add(createSession("09:00"));
+
+    Schedule schedule1 = new Schedule();
+    schedule1.setDate(LocalDate.now().plusDays(0));
+    schedule1.getMovies().add(movie1);
+    schedule1.getMovies().add(movie2);
+    schedule1.getMovies().add(movie3);
+    schedule1.getMovies().add(movie4);
+    schedule1.getMovies().add(movie5);
+    schedule1.getMovies().add(movie6);
+    schedule1.getMovies().add(movie7);
+    schedule1.getMovies().add(movie8);
+
+    Schedule schedule2 = new Schedule();
+    schedule2.setDate(LocalDate.now().plusDays(1));
+    schedule2.getMovies().add(movie2);
+    schedule2.getMovies().add(movie3);
+    schedule2.getMovies().add(movie6);
+    schedule2.getMovies().add(movie7);
+    schedule2.getMovies().add(movie8);
+
+    Schedule schedule3 = new Schedule();
+    schedule3.setDate(LocalDate.now().plusDays(2));
+    schedule3.getMovies().add(movie2);
+    schedule3.getMovies().add(movie3);
+    schedule3.getMovies().add(movie4);
+    schedule3.getMovies().add(movie5);
+    schedule3.getMovies().add(movie6);
+    schedule3.getMovies().add(movie7);
+
+    Schedule schedule4 = new Schedule();
+    schedule4.setDate(LocalDate.now().plusDays(3));
+    schedule4.getMovies().add(movie1);
+    schedule4.getMovies().add(movie4);
+    schedule4.getMovies().add(movie2);
+    schedule4.getMovies().add(movie3);
+    schedule4.getMovies().add(movie6);
+    schedule4.getMovies().add(movie7);
+    schedule4.getMovies().add(movie8);
+
+    Schedule schedule5 = new Schedule();
+    schedule5.setDate(LocalDate.now().plusDays(4));
+    schedule5.getMovies().add(movie1);
+    schedule5.getMovies().add(movie2);
+    schedule5.getMovies().add(movie3);
+    schedule5.getMovies().add(movie4);
+    schedule5.getMovies().add(movie5);
+    schedule5.getMovies().add(movie6);
+    schedule5.getMovies().add(movie7);
+
+    Schedule schedule6 = new Schedule();
+    schedule6.setDate(LocalDate.now().plusDays(5));
+    schedule6.getMovies().add(movie2);
+    schedule6.getMovies().add(movie3);
+    schedule6.getMovies().add(movie4);
+    schedule6.getMovies().add(movie5);
+    schedule6.getMovies().add(movie6);
+    schedule6.getMovies().add(movie7);
+    schedule6.getMovies().add(movie8);
+
+    Schedule schedule7 = new Schedule();
+    schedule7.setDate(LocalDate.now().plusDays(6));
+    schedule7.getMovies().add(movie1);
+    schedule7.getMovies().add(movie2);
+    schedule7.getMovies().add(movie3);
+
+    scheduleRepository.save(schedule1);
+    scheduleRepository.save(schedule2);
+    scheduleRepository.save(schedule3);
+    scheduleRepository.save(schedule4);
+    scheduleRepository.save(schedule5);
+    scheduleRepository.save(schedule6);
+    scheduleRepository.save(schedule7);
   }
 
-  private void initCinema() {
+  private void initTopWatchedCinema() {
     cinemaRepository.deleteAll();
 
     Cinema cinema1 = new Cinema();
     cinema1.setMovieId("284053");
-    cinema1.setFormat(MovieFormat.FORMAT_2D);
-    cinema1.setDateStart(LocalDate.now());
-    cinema1.setDateEnd(LocalDate.now().plusDays(30));
-    cinema1.setUpcoming(true);
+    cinema1.setWatched(5);
 
     Cinema cinema2 = new Cinema();
     cinema2.setMovieId("315635");
-    cinema2.setFormat(MovieFormat.FORMAT_2D);
-    cinema2.setDateStart(LocalDate.now());
-    cinema2.setDateEnd(LocalDate.now().plusDays(30));
+    cinema1.setWatched(1);
 
     Cinema cinema3 = new Cinema();
     cinema3.setMovieId("283995");
-    cinema3.setFormat(MovieFormat.FORMAT_2D);
-    cinema3.setDateStart(LocalDate.now());
-    cinema3.setDateEnd(LocalDate.now().plusDays(20));
-    cinema3.setUpcoming(false);
     cinema3.setWatched(5);
 
     Cinema cinema4 = new Cinema();
     cinema4.setMovieId("263115");
-    cinema4.setFormat(MovieFormat.FORMAT_3D);
-    cinema4.setDateStart(LocalDate.now());
-    cinema4.setDateEnd(LocalDate.now().plusDays(30));
-    cinema4.setUpcoming(false);
-    cinema4.setWatched(10);
+    cinema4.setWatched(8);
+
+    Cinema cinema5 = new Cinema();
+    cinema5.setMovieId("271110");
+    cinema5.setWatched(56);
+
+    Cinema cinema6 = new Cinema();
+    cinema6.setMovieId("293660");
+    cinema6.setWatched(33);
+
+    Cinema cinema7 = new Cinema();
+    cinema7.setMovieId("166424");
+    cinema7.setWatched(80);
 
     cinemaRepository.save(cinema1);
     cinemaRepository.save(cinema2);
     cinemaRepository.save(cinema3);
     cinemaRepository.save(cinema4);
+    cinemaRepository.save(cinema5);
+    cinemaRepository.save(cinema6);
+    cinemaRepository.save(cinema7);
+  }
+
+  private void initUpcomingCinema() {
+    Cinema cinema7 = new Cinema();
+    cinema7.setMovieId("49026");
+    cinema7.setDateStart(LocalDate.now());
+    cinema7.setDateEnd(LocalDate.now().plusDays(30));
+    cinema7.setUpcoming(true);
+
+    Cinema cinema8 = new Cinema();
+    cinema8.setMovieId("464052");
+    cinema8.setDateStart(LocalDate.now());
+    cinema8.setDateEnd(LocalDate.now().plusDays(30));
+    cinema8.setUpcoming(true);
+
+    Cinema cinema9 = new Cinema();
+    cinema9.setMovieId("287947");
+    cinema9.setDateStart(LocalDate.now());
+    cinema9.setDateEnd(LocalDate.now().plusDays(30));
+    cinema9.setUpcoming(true);
+
+    Cinema cinema10 = new Cinema();
+    cinema10.setMovieId("297802");
+    cinema10.setDateStart(LocalDate.now());
+    cinema10.setDateEnd(LocalDate.now().plusDays(30));
+    cinema10.setUpcoming(true);
+
+    Cinema cinema11 = new Cinema();
+    cinema11.setMovieId("141052");
+    cinema11.setDateStart(LocalDate.now().plusDays(1));
+    cinema11.setDateEnd(LocalDate.now().plusDays(30));
+    cinema11.setUpcoming(true);
+
+    Cinema cinema12 = new Cinema();
+    cinema12.setMovieId("297761");
+    cinema12.setDateStart(LocalDate.now().plusDays(1));
+    cinema12.setDateEnd(LocalDate.now().plusDays(30));
+    cinema12.setUpcoming(true);
+
+    Cinema cinema13 = new Cinema();
+    cinema13.setMovieId("209112");
+    cinema13.setDateStart(LocalDate.now().plusDays(2));
+    cinema13.setDateEnd(LocalDate.now().plusDays(30));
+    cinema13.setUpcoming(true);
+
+    Cinema cinema14 = new Cinema();
+    cinema14.setMovieId("57212");
+    cinema14.setDateStart(LocalDate.now().plusDays(2));
+    cinema14.setDateEnd(LocalDate.now().plusDays(30));
+    cinema14.setUpcoming(true);
+
+    cinemaRepository.save(cinema7);
+    cinemaRepository.save(cinema8);
+    cinemaRepository.save(cinema9);
+    cinemaRepository.save(cinema10);
+    cinemaRepository.save(cinema11);
+    cinemaRepository.save(cinema12);
+    cinemaRepository.save(cinema13);
+    cinemaRepository.save(cinema14);
+  }
+
+  private Session createSession(String startTime) {
+    Session session = new Session();
+    session.setStartTime(startTime);
+    return session;
   }
 }

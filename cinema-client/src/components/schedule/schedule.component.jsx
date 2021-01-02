@@ -8,18 +8,28 @@ class Schedule extends React.Component {
     super(props);
 
     this.state = {
-      days: [],
-      movies: []
+      schedule: [],
+      shownMovies: [],
+      selectedDay: 0
     };
   }
 
   componentDidMount() {
-    fetch(ApiUrls.SCHEDULES)
+    fetch(ApiUrls.SCHEDULE)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ movies: data });
+        this.setState({ schedule: data }, () => {
+          this.setState({ shownMovies: data[0].movies });
+        });
       })
       .catch((err) => console.log(err));
+  }
+
+  onSelectDay(tabIndex) {
+    this.setState({ selectedDay: tabIndex }, () => {
+      const movies = this.state.schedule[tabIndex].movies;
+      this.setState({ shownMovies: movies });
+    });
   }
 
   render() {
@@ -28,15 +38,17 @@ class Schedule extends React.Component {
         <div className="wrapper">
           <div className="schedule__heading">Sessions</div>
           <ul className="schedule__dates">
-            <li className="selected">15 MARCH, MON</li>
-            <li>16 MARCH, TUE</li>
-            <li>17 MARCH, WED</li>
-            <li>18 MARCH, THUR</li>
-            <li>19 MARCH, FRY</li>
-            <li>20 MARCH, SAT</li>
-            <li>21 MARCH, SUN</li>
+            {this.state.schedule.map((item, tabIndex) => (
+              <li
+                key={tabIndex}
+                className={`${this.state.selectedDay === tabIndex ? 'selected' : ''}`}
+                onClick={() => this.onSelectDay(tabIndex)}
+              >
+                {item.day}
+              </li>
+            ))}
           </ul>
-          <ScheduleMovies movies={this.state.movies} />
+          <ScheduleMovies movies={this.state.shownMovies} />
         </div>
       </div>
     );

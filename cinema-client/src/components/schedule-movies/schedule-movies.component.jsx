@@ -14,7 +14,7 @@ const ScheduleMovies = ({ movies }) => {
           <div className="schedule__film__sessions">
             {movie.sessions.map((session, sessionIndex) => (
               <div key={sessionIndex} className={session.available ? 'session' : 'session deact'}>
-                {session.time}
+                {session.startTime}
                 <p className="attr" />
               </div>
             ))}

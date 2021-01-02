@@ -1,6 +1,7 @@
 package com.service.movies.controllers;
 
 import com.service.movies.dto.CinemaDto;
+import com.service.movies.dto.UpcomingCinemaDto;
 import com.service.movies.services.CinemaService;
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +32,17 @@ public class MoviesController {
   }
 
   @GetMapping("/upcoming")
-  public ResponseEntity<List<CinemaDto>> getUpcomingMovies() {
+  public ResponseEntity<List<UpcomingCinemaDto>> getUpcomingMovies() {
     return ResponseEntity.ok(moviesService.getUpcomingMovies());
   }
 
   @GetMapping("/top")
   public ResponseEntity<List<CinemaDto>> getTopMovies() {
     return ResponseEntity.ok(moviesService.getTopMovies());
+  }
+
+  @GetMapping("/top-carousel")
+  public ResponseEntity<List<CinemaDto>> getTopCarouselMovies() {
+    return ResponseEntity.ok(moviesService.getTopCarouselMovies());
   }
 }

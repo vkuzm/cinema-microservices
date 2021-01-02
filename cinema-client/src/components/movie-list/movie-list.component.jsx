@@ -15,7 +15,7 @@ const MoviesList = ({ movies }) => {
                 }}
               />
             </div>
-            <h2>{movie.title}</h2>
+            <h2>{movie.name}</h2>
           </a>
         </div>
       ))}

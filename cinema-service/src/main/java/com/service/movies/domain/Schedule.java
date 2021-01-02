@@ -1,5 +1,6 @@
 package com.service.movies.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
@@ -12,6 +13,6 @@ public class Schedule {
 
   @Id
   private String id;
-  private String day;
+  private LocalDate date;
   private List<ScheduleMovie> movies = new ArrayList<>();
 }

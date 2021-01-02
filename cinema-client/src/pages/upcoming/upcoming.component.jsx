@@ -22,17 +22,16 @@ class Upcoming extends React.Component {
   }
 
   render() {
-    const upcoming = this.state.upcoming;
     return (
       <div className="wrapper page">
         <h1>Upcoming</h1>
         <ul className="soon-page-list">
-          {upcoming.map((day, index) => (
+          {this.state.upcoming.map((day, index) => (
             <li key={index} className="soon-page-list-item">
               <div className="soon-page-movie-group">
                 <div className="date-heading">
-                  <span className="date">{day.date}</span>
-                  <span className="weekday">{day.weekDay}</span>
+                  <span className="date">{day.day}</span>
+                  <span className="weekday">{day.weekday}</span>
                 </div>
                 <UpcomingMovies movies={day.movies} />
               </div>

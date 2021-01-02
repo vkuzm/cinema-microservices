@@ -21,11 +21,10 @@ class TopWatched extends React.Component {
   }
 
   render() {
-    const topWatched = this.state.topWatched;
     return (
       <div className="wrapper page">
         <h1>Top watched</h1>
-        <MoviesList movies={topWatched} />
+        <MoviesList movies={this.state.topWatched} />
       </div>
     );
   }

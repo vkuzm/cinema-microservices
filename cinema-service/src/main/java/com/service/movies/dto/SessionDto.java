@@ -8,4 +8,5 @@ public class SessionDto {
   private String sessionId;
   private String startTime;
   private String endTime;
+  private boolean available;
 }
