@@ -1,0 +1,47 @@
+import React from 'react';
+import './upcoming.styles.scss';
+import UpcomingMovies from '../../components/upcoming-movies/upcoming-movies.component';
+import ApiUrls from '../../ApiUrls';
+
+class Upcoming extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      upcoming: []
+    };
+  }
+
+  componentDidMount() {
+    fetch(ApiUrls.UPCOMING)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ upcoming: data });
+      })
+      .catch((err) => console.log(err));
+  }
+
+  render() {
+    const upcoming = this.state.upcoming;
+    return (
+      <div className="wrapper page">
+        <h1>Upcoming</h1>
+        <ul className="soon-page-list">
+          {upcoming.map((day, index) => (
+            <li key={index} className="soon-page-list-item">
+              <div className="soon-page-movie-group">
+                <div className="date-heading">
+                  <span className="date">{day.date}</span>
+                  <span className="weekday">{day.weekDay}</span>
+                </div>
+                <UpcomingMovies movies={day.movies} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default Upcoming;

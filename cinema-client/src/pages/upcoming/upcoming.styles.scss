@@ -1,0 +1,45 @@
+.soon-page-head-section {
+    position: relative;
+}
+.soon-page-list-item {
+    padding-top: 40px;
+    position: relative;
+}
+.soon-page-list-item:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(34,34,34,.1);
+}
+.soon-page-movie-group {
+    display: flex;
+    flex-direction: row;
+}
+.soon-page-movie-group .date-heading {
+    margin-bottom: 0;
+    padding: 0;
+    width: 254px;
+    flex-shrink: 0;
+    flex-direction: column;
+    background-color: transparent;
+    display: flex;
+    line-height: 22px;
+}
+.soon-page-movie-group .date-heading .date {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+}
+.soon-page-movie-group .date-heading .weekday {
+    margin-left: 0;
+    position: relative;
+    top: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(34,34,34,.6);
+    text-transform: capitalize;
+}

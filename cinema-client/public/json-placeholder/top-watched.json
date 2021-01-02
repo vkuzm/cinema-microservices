@@ -1,0 +1,34 @@
+[
+  {
+    "movieId": "1",
+    "url": "#",
+    "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+    "title": "Movie title",
+    "restriction": "18+",
+    "rating": "6.9"
+  },
+  {
+    "movieId": "2",
+    "url": "#",
+    "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+    "title": "Movie title 2",
+    "restriction": "18+",
+    "rating": "6.9"
+  },
+  {
+    "movieId": "3",
+    "url": "#",
+    "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+    "title": "Movie title 3",
+    "restriction": "18+",
+    "rating": "6.9"
+  },
+  {
+    "movieId": "4",
+    "url": "#",
+    "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+    "title": "Movie title 4",
+    "restriction": "18+",
+    "rating": "6.9"
+  }
+]

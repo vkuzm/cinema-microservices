@@ -1,0 +1,50 @@
+[
+  {
+    "date": "November 17",
+    "weekDay": "Monday",
+    "movies": [
+      {
+        "movieId": "1",
+        "url": "#",
+        "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+        "title": "Movie title"
+      },
+      {
+        "movieId": "2",
+        "url": "#",
+        "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+        "title": "Movie title 2"
+      },
+      {
+        "movieId": "3",
+        "url": "#",
+        "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+        "title": "Movie title 3"
+      },
+      {
+        "movieId": "4",
+        "url": "#",
+        "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+        "title": "Movie title 4"
+      }
+    ]
+  },
+  {
+    "date": "December 22",
+    "weekDay": "Tuesday",
+    "movies": [
+      {
+        "movieId": "1",
+        "url": "#",
+        "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+        "title": "Movie title"
+      },
+      {
+        "movieId": "2",
+        "url": "#",
+        "image": "https://zhovten-kino.kiev.ua/images/52/c2/52c288e241f53320a8121d4848677a0f.jpeg",
+        "title": "Movie title 2"
+      }
+    ]
+  }
+]
