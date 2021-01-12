@@ -220,6 +220,7 @@ h1 {
 .form-detail input[type='password'] {
   width: 100%;
   padding: 8px 15px;
+  padding-left: 40px;
   border: 1px solid #e5e5e5;
   appearance: unset;
   outline: none;
@@ -258,7 +259,7 @@ h1 {
 .form-detail .fa {
   font-size: 14px;
   color: #999;
-  right: 15px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
