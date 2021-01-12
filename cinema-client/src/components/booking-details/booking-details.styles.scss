@@ -1,0 +1,40 @@
+.booking {
+  height: 100%;
+  width: 450px;
+  padding: 5px 20px 90px;
+  border-left: 1px solid #ececec;
+  background-color: #f7f8f9;
+  position: absolute;
+  right: 0;
+
+  .booking-detail {
+    .booking-detail-heading {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      line-height: 26px;
+      color: #061420;
+      font-weight: bold;
+    }
+
+    li {
+      background: #dfdfdf87;
+      padding: 10px;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .booking-submit {
+    margin-top: 20px;
+
+    .booking-submit-heading {
+      margin-bottom: 10px;
+      border-top: 2px solid #dfdfdf;
+      padding-top: 10px;
+    }
+  }
+}

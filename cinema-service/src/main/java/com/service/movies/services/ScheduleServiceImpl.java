@@ -41,28 +41,28 @@ public class ScheduleServiceImpl implements ScheduleService {
   @Override
   public List<ScheduleDto> getSessions() {
     final List<Schedule> scheduleList = scheduleRepo.findAll();
+    final Map<String, Movie> moviesData = getDataMovies(scheduleList);
     final List<ScheduleDto> scheduleDtoList = new ArrayList<>();
-    final Map<String, Movie> moviesMap = getDataMovies(scheduleList);
 
     scheduleList.forEach(schedule -> {
-      ScheduleDto scheduleDto = modelMapper.map(schedule, ScheduleDto.class);
+      final ScheduleDto scheduleDto = modelMapper.map(schedule, ScheduleDto.class);
       scheduleDto.setDay(schedule.getDate().format(dayFormat));
       scheduleDtoList.add(scheduleDto);
     });
 
-    for (ScheduleDto schedule : scheduleDtoList) {
-      for (ScheduleMovieDto scheduleMovie : schedule.getMovies()) {
-        final Movie movie = moviesMap.get(scheduleMovie.getMovieId());
+    for (ScheduleDto scheduleDto : scheduleDtoList) {
+      for (ScheduleMovieDto scheduleMovieDto : scheduleDto.getMovies()) {
+        final Movie movie = moviesData.get(scheduleMovieDto.getMovieId());
 
         if (Objects.nonNull(movie)) {
-          scheduleMovie.setMovieId(String.valueOf(movie.getId()));
-          scheduleMovie.setImage(ImageConstants.POSTER_IMAGE_URL + movie.getPosterPath());
-          scheduleMovie.setName(movie.getTitle());
-          scheduleMovie.setRating(movie.getVoteAverage());
-          //scheduleMovie.setRestriction(movie.isAdult() ? "18+" : "10+");
+          scheduleMovieDto.setMovieId(String.valueOf(movie.getId()));
+          scheduleMovieDto.setImage(ImageConstants.POSTER_IMAGE_URL + movie.getPosterPath());
+          scheduleMovieDto.setName(movie.getTitle());
+          scheduleMovieDto.setRating(movie.getVoteAverage());
         }
 
-        for (SessionDto session : scheduleMovie.getSessions()) {
+        // TODO IN BOOKING MICROSERVICE
+        for (SessionDto session : scheduleMovieDto.getSessions()) {
           LocalTime sessionTime = LocalTime.from(timeFormat.parse(session.getStartTime()));
           session.setAvailable(currentTime.isBefore(sessionTime));
           session.setEndTime(currentTime.toString());
@@ -79,7 +79,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     for (Schedule schedule : schedulerList) {
       for (ScheduleMovie scheduleMovie : schedule.getMovies()) {
         if (!movies.containsKey(scheduleMovie.getMovieId())) {
-          Movie movie = tmdbMovies.getMovie(scheduleMovie.getMovieId());
+          final Movie movie = tmdbMovies.getMovie(scheduleMovie.getMovieId());
           movies.put(scheduleMovie.getMovieId(), movie);
         }
       }

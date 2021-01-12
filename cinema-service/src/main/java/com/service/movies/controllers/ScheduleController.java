@@ -19,7 +19,7 @@ public class ScheduleController {
   }
 
   @GetMapping
-  public ResponseEntity<List<ScheduleDto>> getSessions() {
+  public ResponseEntity<List<ScheduleDto>> getSchedule() {
     return ResponseEntity.ok(scheduleService.getSessions());
   }
 }

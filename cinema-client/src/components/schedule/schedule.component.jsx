@@ -1,7 +1,7 @@
 import React from 'react';
 import './schedule.styles.scss';
 import ScheduleMovies from '../schedule-movies/schedule-movies.component';
-import ApiUrls from '../../ApiUrls';
+import ApiUrls from '../../ApiUrlConstants';
 
 class Schedule extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class Schedule extends React.Component {
               </li>
             ))}
           </ul>
-          <ScheduleMovies movies={this.state.shownMovies} />
+          <ScheduleMovies movies={this.state.shownMovies} {...this.props} />
         </div>
       </div>
     );

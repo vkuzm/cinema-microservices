@@ -1,0 +1,254 @@
+{
+  "movieId": "312312",
+  "image": "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+  "name": "Thor: Ragnarok",
+  "description": "Це справжня історія Джеймса Боуена, чоловіка, який жив на вулицях Лондона зі своїм чотирилапим другом – котом Бобом. Коли ночі стають холоднішими, і він намагається заробити трохи грошей перед Різдвом, Джеймс опиняється в центрі медіа-скандалу, коли місцева влада ставить під сумнів його як гідного хазяїна тваринки.",
+  "director": "Rick Nord",
+  "release": "31.12.2020",
+  "rating": 7.6,
+  "language": "English",
+  "genres": ["Family", "Drama", "Comedy"],
+  "duration": "1:32",
+  "production": "USA",
+  "starring": "Ton Cruze, Nick White, Jack Black",
+  "schedule": [
+    {
+      "day": "02 January, Sat",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    },
+    {
+      "day": "03 January, Sun",
+      "sessions": [
+        {
+          "sessionId": "daef5518-190d-45ca-9776-bbe819e4f9e3",
+          "startTime": "11:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "4e6d6a26-11c3-4ddd-ad52-d4bdbb3c20da",
+          "startTime": "18:30",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "f5812c8c-766f-455c-b473-23e59203b259",
+          "startTime": "00:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        }
+      ]
+    },
+    {
+      "day": "04 January, Mon",
+      "sessions": [
+        {
+          "sessionId": "daef5518-190d-45ca-9776-bbe819e4f9e3",
+          "startTime": "11:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "4e6d6a26-11c3-4ddd-ad52-d4bdbb3c20da",
+          "startTime": "18:30",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "f5812c8c-766f-455c-b473-23e59203b259",
+          "startTime": "00:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        }
+      ]
+    },
+    {
+      "day": "05 January, Tue",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    },
+    {
+      "day": "06 January, Wed",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    },
+    {
+      "day": "07 January, Thu",
+      "sessions": [
+        {
+          "sessionId": "daef5518-190d-45ca-9776-bbe819e4f9e3",
+          "startTime": "11:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "4e6d6a26-11c3-4ddd-ad52-d4bdbb3c20da",
+          "startTime": "18:30",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "f5812c8c-766f-455c-b473-23e59203b259",
+          "startTime": "00:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        }
+      ]
+    },
+    {
+      "day": "08 January, Fri",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "movieId": "213132",
+      "image": "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+      "name": "Thor: Ragnarok",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    },
+    {
+      "movieId": "213132",
+      "image": "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+      "name": "Thor: Ragnarok",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    },
+    {
+      "movieId": "213132",
+      "image": "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+      "name": "Thor: Ragnarok",
+      "sessions": [
+        {
+          "sessionId": "06cdd51c-0599-4e14-ae6f-4ed43be0fd94",
+          "startTime": "09:00",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "a44d4b0f-6a87-416a-b74b-c22a65978983",
+          "startTime": "16:20",
+          "endTime": "19:01:02.576",
+          "available": false
+        },
+        {
+          "sessionId": "8184eb37-4abd-48e1-bdc9-5a6386795bec",
+          "startTime": "22:10",
+          "endTime": "19:01:02.576",
+          "available": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+  .schedule__selection {
+    border-bottom: 1px solid rgba(34, 34, 34, 0.1);
+    align-items: center;
+    display: flex;
+  }
+
+  .schedule__selection:last-child {
+    border-bottom: none;
+  }
+
+  .schedule__selection__name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+
+  .schedule__selection__sessions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }

@@ -10,7 +10,6 @@ public class ScheduleMovieDto {
   private String movieId;
   private String image;
   private String name;
-  private String restriction;
   private double rating;
   private List<SessionDto> sessions = new ArrayList<>();
 }

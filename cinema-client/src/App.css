@@ -152,9 +152,120 @@ body {
 p {
   margin-bottom: 15px;
 }
+b {
+  font-weight: bold;
+}
 h1 {
   font-size: 30px;
   font-weight: 700;
   line-height: 30px;
   margin-bottom: 20px;
+}
+.btn {
+  font-size: 14px;
+  line-height: 24px;
+  color: #fff;
+  padding: 6px 18px;
+  transition: 0.25s;
+  background: #1960ff;
+  min-width: 150px;
+  border-radius: 4px;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.btn:hover {
+  cursor: pointer;
+  background: #004af0;
+  text-decoration: none;
+}
+.btn:focus {
+  outline: none !important;
+}
+.form-detail h2 {
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  position: relative;
+  padding: 3px 0 20px;
+  margin-bottom: 20px;
+}
+.form-detail h2::after {
+  content: '';
+  background: #3786bd;
+  width: 50px;
+  height: 2px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.form-detail .form-row {
+  position: relative;
+  margin-bottom: 20px;
+}
+.form-detail .form-row-last {
+  text-align: center;
+}
+.form-detail label {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 8px;
+}
+.form-detail .input-text {
+  position: relative;
+}
+.form-detail input[type='text'],
+.form-detail input[type='tel'],
+.form-detail input[type='email'],
+.form-detail input[type='password'] {
+  width: 100%;
+  padding: 8px 15px;
+  border: 1px solid #e5e5e5;
+  appearance: unset;
+  outline: none;
+  border-radius: 4px;
+  font-weight: 400;
+  font-size: 14px;
+}
+.form-detail .input-text.gray input {
+  background: #f7f8f9;
+}
+.form-detail input::-webkit-input-placeholder,
+.form-detail input::-moz-placeholder,
+.form-detail input:-ms-input-placeholder,
+.form-detail input:-moz-placeholder {
+  color: #999;
+  font-size: 15px;
+}
+.form-detail input:focus {
+  border: 1px solid #b3b3b3;
+}
+.form-detail .btn.submit-button {
+  font-size: 15px;
+  color: #fff;
+  background: #ef5261;
+  border-radius: 4px;
+  width: 180px;
+  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+  margin: 10px 0 10px;
+  cursor: pointer;
+  outline: none !important;
+}
+.form-detail .btn.submit-button:hover {
+  background: #cf4855;
+}
+.form-detail .fa {
+  font-size: 14px;
+  color: #999;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+}
+.form-detail .error-message {
+  color: red;
+  font-size: 12px;
+  line-height: 12px;
+  margin-top: 6px;
 }

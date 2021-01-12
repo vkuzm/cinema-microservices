@@ -8,7 +8,7 @@ class Home extends React.Component {
     return (
       <div className="home">
         <TopWatchedCarousel />
-        <Schedule />
+        <Schedule {...this.props} />
       </div>
     );
   }

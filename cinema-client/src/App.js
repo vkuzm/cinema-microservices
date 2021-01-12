@@ -9,8 +9,10 @@ import TopWatched from './pages/top-watched/top-watched.component';
 import SignIn from './pages/sign-in/sign-in.component';
 import SignUp from './pages/sign-up/sign-up.component';
 import Discounts from './pages/discounts/discounts.component';
+import Movie from './pages/movie/movie.component';
+import Session from './pages/session/session.component';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Header />
@@ -22,11 +24,13 @@ function App() {
           <Route exact path="/sign-in" component={SignIn} />
           <Route exact path="/sign-up" component={SignUp} />
           <Route exact path="/discounts" component={Discounts} />
+          <Route exact path="/movie/:movieId" component={Movie} />
+          <Route exact path="/session/:sessionId" component={Session} />
         </Switch>
       </section>
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

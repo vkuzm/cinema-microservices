@@ -1,0 +1,215 @@
+{
+  "sessionId": "312312",
+  "movieName": "THOR",
+  "movieImage": "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+  "sessionDate": "05.01.2021, Tuesday",
+  "sessionTime": "21:30 - 23:03",
+  "seats": {
+    "front": [
+      {
+        "seatNumber": "1",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "2",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "3",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "4",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "5",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "6",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "7",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "8",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "9",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "10",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "11",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "12",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "13",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "14",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "15",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "16",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "17",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "18",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "19",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "20",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "21",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "22",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "23",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "24",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "25",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "26",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "27",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "28",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "29",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "30",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "31",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "32",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "33",
+        "price": 50,
+        "type": "front"
+      },
+      {
+        "seatNumber": "34",
+        "price": 50,
+        "type": "front"
+      }
+    ],
+    "regular": [
+      {
+        "seatNumber": "1",
+        "price": 50,
+        "type": "regular"
+      },
+      {
+        "seatNumber": "2",
+        "price": 50,
+        "type": "regular"
+      },
+      {
+        "seatNumber": "3",
+        "price": 50,
+        "type": "regular"
+      }
+    ],
+    "vip": [
+      {
+        "seatNumber": "1",
+        "price": 50,
+        "type": "vip"
+      },
+      {
+        "seatNumber": "2",
+        "price": 50,
+        "type": "vip"
+      },
+      {
+        "seatNumber": "3",
+        "price": 50,
+        "type": "vip"
+      }
+    ]
+  }
+}

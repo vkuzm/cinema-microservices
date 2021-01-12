@@ -10,7 +10,7 @@ public interface CinemaRepository extends CrudRepository<Cinema, String> {
 
   List<Cinema> findAllByUpcomingIsTrue();
 
-  List<Cinema> findAllByUpcomingIsFalseOrderByWatchedDesc(Pageable pageable);
+  List<Cinema> findAllByUpcomingIsFalseOrderByVisitedDesc(Pageable pageable);
 
-  Optional<Cinema> findByMovieId(String movieId);
+  Optional<Cinema> findById(String id);
 }

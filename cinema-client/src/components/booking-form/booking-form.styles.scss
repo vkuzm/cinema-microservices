@@ -1,0 +1,43 @@
+.checkout {
+  padding-top: 30px;
+  .checkout-info {
+    h2 {
+      margin-bottom: 5px;
+    }
+    .form-detail {
+      max-width: 500px;
+
+      .form-row {
+        margin-bottom: 20px;
+
+        .input-text {
+          margin-bottom: 0;
+        }
+
+        .invalid-message {
+          color: red;
+          font-size: 14px;
+          line-height: 14px;
+          margin-top: 8px;
+        }
+      }
+    }
+
+    .payment-types {
+      padding-top: 30px;
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        position: relative;
+        padding-left: 22px;
+
+        .fa {
+          left: 0;
+          right: 0;
+          top: 10px;
+        }
+      }
+    }
+  }
+}

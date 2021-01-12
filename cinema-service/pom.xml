@@ -70,7 +70,7 @@
       <artifactId>tmdbapi</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}\src\lib\tmdbapi-1.0.1.jar</systemPath>
+      <systemPath>${project.basedir}\src\libs\tmdbapi-1.0.1.jar</systemPath>
     </dependency>
   </dependencies>
 

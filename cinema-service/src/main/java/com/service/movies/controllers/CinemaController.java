@@ -1,7 +1,7 @@
 package com.service.movies.controllers;
 
 import com.service.movies.dto.CinemaDto;
-import com.service.movies.dto.UpcomingCinemaDto;
+import com.service.movies.dto.UpcomingDto;
 import com.service.movies.services.CinemaService;
 import java.util.List;
 import java.util.Optional;
@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/movies")
-public class MoviesController {
+public class CinemaController {
 
-  private final CinemaService moviesService;
+  private final CinemaService cinemaService;
 
-  public MoviesController(CinemaService moviesService) {
-    this.moviesService = moviesService;
+  public CinemaController(CinemaService moviesService) {
+    this.cinemaService = moviesService;
   }
 
-  @GetMapping("/{movieId}")
-  public ResponseEntity<CinemaDto> getMovieById(@PathVariable String movieId) {
-    final Optional<CinemaDto> cinemaDto = moviesService.getMovieById(movieId);
+  @GetMapping("/{id}")
+  public ResponseEntity<CinemaDto> getMovieById(@PathVariable String id) {
+    final Optional<CinemaDto> cinemaDto = cinemaService.getById(id);
 
     if (cinemaDto.isPresent()) {
       return ResponseEntity.ok(cinemaDto.get());
@@ -32,17 +32,17 @@ public class MoviesController {
   }
 
   @GetMapping("/upcoming")
-  public ResponseEntity<List<UpcomingCinemaDto>> getUpcomingMovies() {
-    return ResponseEntity.ok(moviesService.getUpcomingMovies());
+  public ResponseEntity<List<UpcomingDto>> getUpcomingMovies() {
+    return ResponseEntity.ok(cinemaService.getUpcoming());
   }
 
   @GetMapping("/top")
   public ResponseEntity<List<CinemaDto>> getTopMovies() {
-    return ResponseEntity.ok(moviesService.getTopMovies());
+    return ResponseEntity.ok(cinemaService.getTop());
   }
 
   @GetMapping("/top-carousel")
   public ResponseEntity<List<CinemaDto>> getTopCarouselMovies() {
-    return ResponseEntity.ok(moviesService.getTopCarouselMovies());
+    return ResponseEntity.ok(cinemaService.getTopCarousel());
   }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class UpcomingCinemaDto {
+public class UpcomingDto {
 
   private String day;
   private String weekday;

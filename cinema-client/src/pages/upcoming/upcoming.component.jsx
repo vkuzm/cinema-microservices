@@ -1,7 +1,7 @@
 import React from 'react';
 import './upcoming.styles.scss';
 import UpcomingMovies from '../../components/upcoming-movies/upcoming-movies.component';
-import ApiUrls from '../../ApiUrls';
+import ApiUrls from '../../ApiUrlConstants';
 
 class Upcoming extends React.Component {
   constructor(props) {

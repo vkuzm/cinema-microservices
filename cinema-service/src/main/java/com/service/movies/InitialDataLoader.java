@@ -6,6 +6,7 @@ import com.service.movies.domain.ScheduleMovie;
 import com.service.movies.domain.Session;
 import com.service.movies.repositories.CinemaRepository;
 import com.service.movies.repositories.ScheduleRepository;
+import com.service.movies.services.SequenceGeneratorService;
 import java.time.LocalDate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -17,10 +18,13 @@ public class InitialDataLoader implements CommandLineRunner {
 
   private final CinemaRepository cinemaRepository;
   private final ScheduleRepository scheduleRepository;
+  private final SequenceGeneratorService sequenceGeneratorService;
 
-  public InitialDataLoader(CinemaRepository cinemaRepository, ScheduleRepository scheduleRepository) {
+  public InitialDataLoader(CinemaRepository cinemaRepository, ScheduleRepository scheduleRepository,
+      SequenceGeneratorService sequenceGeneratorService) {
     this.cinemaRepository = cinemaRepository;
     this.scheduleRepository = scheduleRepository;
+    this.sequenceGeneratorService = sequenceGeneratorService;
   }
 
   @Override
@@ -152,32 +156,39 @@ public class InitialDataLoader implements CommandLineRunner {
     cinemaRepository.deleteAll();
 
     Cinema cinema1 = new Cinema();
+    cinema1.setId(generateCinemaSequence());
     cinema1.setMovieId("284053");
-    cinema1.setWatched(5);
+    cinema1.setVisited(5);
 
     Cinema cinema2 = new Cinema();
+    cinema2.setId(generateCinemaSequence());
     cinema2.setMovieId("315635");
-    cinema1.setWatched(1);
+    cinema2.setVisited(1);
 
     Cinema cinema3 = new Cinema();
+    cinema3.setId(generateCinemaSequence());
     cinema3.setMovieId("283995");
-    cinema3.setWatched(5);
+    cinema3.setVisited(5);
 
     Cinema cinema4 = new Cinema();
+    cinema4.setId(generateCinemaSequence());
     cinema4.setMovieId("263115");
-    cinema4.setWatched(8);
+    cinema4.setVisited(8);
 
     Cinema cinema5 = new Cinema();
+    cinema5.setId(generateCinemaSequence());
     cinema5.setMovieId("271110");
-    cinema5.setWatched(56);
+    cinema5.setVisited(56);
 
     Cinema cinema6 = new Cinema();
+    cinema6.setId(generateCinemaSequence());
     cinema6.setMovieId("293660");
-    cinema6.setWatched(33);
+    cinema6.setVisited(33);
 
     Cinema cinema7 = new Cinema();
+    cinema7.setId(generateCinemaSequence());
     cinema7.setMovieId("166424");
-    cinema7.setWatched(80);
+    cinema7.setVisited(80);
 
     cinemaRepository.save(cinema1);
     cinemaRepository.save(cinema2);
@@ -190,48 +201,56 @@ public class InitialDataLoader implements CommandLineRunner {
 
   private void initUpcomingCinema() {
     Cinema cinema7 = new Cinema();
+    cinema7.setId(generateCinemaSequence());
     cinema7.setMovieId("49026");
     cinema7.setDateStart(LocalDate.now());
     cinema7.setDateEnd(LocalDate.now().plusDays(30));
     cinema7.setUpcoming(true);
 
     Cinema cinema8 = new Cinema();
+    cinema8.setId(generateCinemaSequence());
     cinema8.setMovieId("464052");
     cinema8.setDateStart(LocalDate.now());
     cinema8.setDateEnd(LocalDate.now().plusDays(30));
     cinema8.setUpcoming(true);
 
     Cinema cinema9 = new Cinema();
+    cinema9.setId(generateCinemaSequence());
     cinema9.setMovieId("287947");
     cinema9.setDateStart(LocalDate.now());
     cinema9.setDateEnd(LocalDate.now().plusDays(30));
     cinema9.setUpcoming(true);
 
     Cinema cinema10 = new Cinema();
+    cinema10.setId(generateCinemaSequence());
     cinema10.setMovieId("297802");
     cinema10.setDateStart(LocalDate.now());
     cinema10.setDateEnd(LocalDate.now().plusDays(30));
     cinema10.setUpcoming(true);
 
     Cinema cinema11 = new Cinema();
+    cinema11.setId(generateCinemaSequence());
     cinema11.setMovieId("141052");
     cinema11.setDateStart(LocalDate.now().plusDays(1));
     cinema11.setDateEnd(LocalDate.now().plusDays(30));
     cinema11.setUpcoming(true);
 
     Cinema cinema12 = new Cinema();
+    cinema12.setId(generateCinemaSequence());
     cinema12.setMovieId("297761");
     cinema12.setDateStart(LocalDate.now().plusDays(1));
     cinema12.setDateEnd(LocalDate.now().plusDays(30));
     cinema12.setUpcoming(true);
 
     Cinema cinema13 = new Cinema();
+    cinema13.setId(generateCinemaSequence());
     cinema13.setMovieId("209112");
     cinema13.setDateStart(LocalDate.now().plusDays(2));
     cinema13.setDateEnd(LocalDate.now().plusDays(30));
     cinema13.setUpcoming(true);
 
     Cinema cinema14 = new Cinema();
+    cinema14.setId(generateCinemaSequence());
     cinema14.setMovieId("57212");
     cinema14.setDateStart(LocalDate.now().plusDays(2));
     cinema14.setDateEnd(LocalDate.now().plusDays(30));
@@ -251,5 +270,9 @@ public class InitialDataLoader implements CommandLineRunner {
     Session session = new Session();
     session.setStartTime(startTime);
     return session;
+  }
+
+  private String generateCinemaSequence() {
+    return sequenceGeneratorService.generateSequence(Cinema.SEQUENCE_NAME);
   }
 }

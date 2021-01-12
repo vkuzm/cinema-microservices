@@ -1,5 +1,5 @@
 import React from 'react';
-import ApiUrls from '../../ApiUrls';
+import ApiUrls from '../../ApiUrlConstants';
 import MoviesList from '../../components/movie-list/movie-list.component';
 
 class TopWatched extends React.Component {

@@ -4,10 +4,10 @@ services:
 
   # Gateway
   nginx-gateway:
-    restart: always
     build:
       dockerfile: Dockerfile
       context: ./nginx-gateway
+    restart: on-failure
     ports:
       - 8080:80
 
@@ -16,6 +16,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./users-service
+    restart: on-failure  
     volumes:
       - /app/node_modules
       - ./users-service:/app
@@ -31,15 +32,17 @@ services:
    build:
      dockerfile: Dockerfile
      context: ./cinema-service
+   restart: on-failure
    environment:
      SERVER_PORT: 8082
      MONGO_URL: mongo-cinema
      MONGO_PORT: 27017
+     API_KEY: ''
 
   # Users service MongoDB
   mongo-users:
     image: mongo:4.4.2
-    restart: always
+    restart: on-failure
     volumes:
       - ./users-service/data:/data/db
 
@@ -49,7 +52,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpassword
-    restart: always
+    restart: on-failure
     volumes:
       - ./cinema-service/data:/data/db
     ports:
@@ -59,12 +62,12 @@ services:
   # Users service Redis
   redis-users:
     image: redis:6.0.9
-    restart: always
+    restart: on-failure
 
   # Tools
   mongo-express:
     image: mongo-express:0.54.0
-    restart: always
+    restart: on-failure
     ports:
       - 9999:8081
     environment:

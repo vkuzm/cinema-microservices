@@ -14,5 +14,5 @@ public class CinemaDto {
   private double rating;
   private LocalDate dateStart;
   private LocalDate dateEnd;
-  private int watched;
+  private int visited;
 }

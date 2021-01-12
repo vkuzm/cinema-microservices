@@ -3,7 +3,7 @@ package com.service.movies.services;
 import com.service.movies.ImageConstants;
 import com.service.movies.domain.Cinema;
 import com.service.movies.dto.CinemaDto;
-import com.service.movies.dto.UpcomingCinemaDto;
+import com.service.movies.dto.UpcomingDto;
 import com.service.movies.repositories.CinemaRepository;
 import com.vkuzmenko.tmdbapi.TmdbApi;
 import com.vkuzmenko.tmdbapi.TmdbMovies;
@@ -15,7 +15,6 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CinemaServiceImpl implements CinemaService {
 
+  private static final int TOP_LIMIT = 20;
+  private static final int TOP_CAROUSEL_LIMIT = 5;
   private static final DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("dd MMMM");
   private static final DateTimeFormatter weekDayFormat = DateTimeFormatter.ofPattern("EEEE");
 
@@ -35,42 +36,41 @@ public class CinemaServiceImpl implements CinemaService {
   }
 
   @Override
-  public List<UpcomingCinemaDto> getUpcomingMovies() {
-    final List<Cinema> upcomingCinemaList = cinemaRepository.findAllByUpcomingIsTrue();
-    upcomingCinemaList.sort(Comparator.comparing(Cinema::getDateStart));
+  public List<UpcomingDto> getUpcoming() {
+    final List<Cinema> upcomingList = cinemaRepository.findAllByUpcomingIsTrue();
+    upcomingList.sort(Comparator.comparing(Cinema::getDateStart));
 
-    final Map<LocalDate, List<Cinema>> upcomingCinemaMap = getUpcomingCinemaMap(upcomingCinemaList);
-    final List<UpcomingCinemaDto> upcomingCinemaDtoList = new ArrayList<>();
+    final Map<LocalDate, List<Cinema>> upcomingMap = getUpcomingMap(upcomingList);
+    final List<UpcomingDto> upcomingDtoList = new ArrayList<>();
 
-    for (Entry<LocalDate, List<Cinema>> entry : upcomingCinemaMap.entrySet()) {
-      final UpcomingCinemaDto upcomingCinema = new UpcomingCinemaDto();
-      final LocalDate key = entry.getKey();
-      upcomingCinema.setDay(key.format(dayFormat));
-      upcomingCinema.setWeekday(key.format(weekDayFormat));
-      upcomingCinema.setMovies(convertToCinemaDtoList(entry.getValue(), true));
-      upcomingCinemaDtoList.add(upcomingCinema);
-    }
-    return upcomingCinemaDtoList;
+    upcomingMap.forEach((startDate, movie) -> {
+      final UpcomingDto upcomingCinema = new UpcomingDto();
+      upcomingCinema.setDay(startDate.format(dayFormat));
+      upcomingCinema.setWeekday(startDate.format(weekDayFormat));
+      upcomingCinema.setMovies(convertToCinemaDtoList(movie, true));
+      upcomingDtoList.add(upcomingCinema);
+    });
+    return upcomingDtoList;
   }
 
   @Override
-  public List<CinemaDto> getTopMovies() {
+  public List<CinemaDto> getTop() {
     final List<Cinema> cinemaList = cinemaRepository
-        .findAllByUpcomingIsFalseOrderByWatchedDesc(PageRequest.of(0, 20));
+        .findAllByUpcomingIsFalseOrderByVisitedDesc(PageRequest.of(0, TOP_LIMIT));
     return convertToCinemaDtoList(cinemaList, true);
   }
 
   @Override
-  public List<CinemaDto> getTopCarouselMovies() {
+  public List<CinemaDto> getTopCarousel() {
     final List<Cinema> cinemaList = cinemaRepository
-        .findAllByUpcomingIsFalseOrderByWatchedDesc(PageRequest.of(0, 5));
+        .findAllByUpcomingIsFalseOrderByVisitedDesc(PageRequest.of(0, TOP_CAROUSEL_LIMIT));
     return convertToCinemaDtoList(cinemaList, false);
   }
 
   @Override
-  public Optional<CinemaDto> getMovieById(String movieId) {
+  public Optional<CinemaDto> getById(String id) {
     final TmdbMovies tmdbMovies = tmdbApi.getMovies();
-    final Optional<Cinema> cinema = cinemaRepository.findByMovieId(movieId);
+    final Optional<Cinema> cinema = cinemaRepository.findById(id);
 
     if (cinema.isPresent()) {
       final Movie movie = tmdbMovies.getMovie(cinema.get().getMovieId());
@@ -84,43 +84,34 @@ public class CinemaServiceImpl implements CinemaService {
     final TmdbMovies tmdbMovies = tmdbApi.getMovies();
     final List<CinemaDto> cinemaDtoList = new ArrayList<>();
 
-    for (Cinema cinema : cinemaList) {
+    cinemaList.forEach(cinema -> {
       final Movie movie = tmdbMovies.getMovie(cinema.getMovieId());
       final CinemaDto cinemaDto = convertToCinemaDto(cinema, movie, isPoster);
       cinemaDtoList.add(cinemaDto);
-    }
+    });
     return cinemaDtoList;
   }
 
   private CinemaDto convertToCinemaDto(Cinema cinema, Movie movie, boolean isPoster) {
     final CinemaDto cinemaDto = new CinemaDto();
-    cinemaDto.setMovieId(cinema.getId());
-
-    if (isPoster) {
-      cinemaDto.setImage(ImageConstants.POSTER_IMAGE_URL + movie.getPosterPath());
-    } else {
-      cinemaDto.setImage(ImageConstants.MEDIUM_IMAGE_URL + movie.getBackdropPath());
-    }
-
+    cinemaDto.setMovieId(cinema.getMovieId());
     cinemaDto.setName(movie.getTitle());
     cinemaDto.setRating(movie.getVoteAverage());
-    //cinemaDto.setRestriction(movie.isAdult() ? "18+" : "10+");
     cinemaDto.setDescription(movie.getOverview());
     cinemaDto.setDateStart(cinema.getDateStart());
     cinemaDto.setDateEnd(cinema.getDateEnd());
-    cinemaDto.setWatched(cinema.getWatched());
+    cinemaDto.setImage(isPoster ? ImageConstants.POSTER_IMAGE_URL + movie.getPosterPath()
+        : ImageConstants.MEDIUM_IMAGE_URL + movie.getBackdropPath());
     return cinemaDto;
   }
 
-  private Map<LocalDate, List<Cinema>> getUpcomingCinemaMap(List<Cinema> upcomingCinemaList) {
-    final Map<LocalDate, List<Cinema>> cinemaMap = new LinkedHashMap<>();
-    for (Cinema cinema : upcomingCinemaList) {
-      final LocalDate key = cinema.getDateStart();
-      if (!cinemaMap.containsKey(key)) {
-        cinemaMap.put(key, new ArrayList<>());
-      }
-      cinemaMap.get(key).add(cinema);
-    }
-    return cinemaMap;
+  private Map<LocalDate, List<Cinema>> getUpcomingMap(List<Cinema> upcomingCinemaList) {
+    final Map<LocalDate, List<Cinema>> upcomingMap = new LinkedHashMap<>();
+    upcomingCinemaList.forEach(cinema -> {
+      final LocalDate startDate = cinema.getDateStart();
+      upcomingMap.putIfAbsent(startDate, new ArrayList<>());
+      upcomingMap.get(startDate).add(cinema);
+    });
+    return upcomingMap;
   }
 }
