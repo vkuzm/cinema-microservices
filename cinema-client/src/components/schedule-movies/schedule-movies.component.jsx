@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './schedule-movies.styles.scss';
-import AppUrls, {getSessionUrl} from '../../AppUrlContants';
+import AppUrlConstants from '../../AppUrlConstants';
 
 const ScheduleMovies = ({ movies, history }) => {
   const onShowSession = (sessionId) => {
-    history.push(getSessionUrl(sessionId));
+    history.push(AppUrlConstants.getSessionUrl(sessionId));
   };
 
   return (
     <div className="schedule__films">
       {movies.map((movie, index) => (
         <div key={index} className="schedule__film">
-          <Link to={AppUrls.getMovieUrl(movie.movieId)}>
+          <Link to={AppUrlConstants.getMovieUrl(movie.movieId)}>
             <img className="schedule__film__poster" src={movie.image} alt={movie.name} />
             <p className="schedule__film__title">{movie.name}</p>
           </Link>

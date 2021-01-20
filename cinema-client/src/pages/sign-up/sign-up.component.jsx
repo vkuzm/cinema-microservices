@@ -1,13 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import './sign-up.styles.scss';
-import EmailValidator from '../../utils/EmailValidator';
 import ApiUrlConstants from '../../ApiUrlConstants';
-
-const PASSWORD_LENGTH_MIN = 6;
-const PASSWORD_LENGTH_MAX = 12;
-const NAME_LENGTH_MIN = 4;
-const NAME_LENGTH_MAX = 20;
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -16,19 +10,19 @@ class SignUp extends React.Component {
     this.state = {
       name: {
         value: '',
-        hasError: false
+        errorMessage: ''
       },
       email: {
         value: '',
-        hasError: false,
-        hasAlreadyExistedError: false
+        errorMessage: ''
       },
       age: {
-        value: ''
+        value: '',
+        errorMessage: ''
       },
       password: {
         value: '',
-        hasError: false
+        errorMessage: ''
       },
       repassword: {
         value: ''
@@ -49,39 +43,49 @@ class SignUp extends React.Component {
   onSubmit = async () => {
     const { name, email, age, password, repassword } = this.state;
 
-    await this.validate('name', this.validateName(name));
-    await this.validate('email', this.validateEmail(email));
-    await this.validate('password', this.validatePassword(password, repassword));
+    const payload = {
+      name: name.value,
+      email: email.value,
+      age: age.value,
+      password: password.value,
+      repassword: repassword.value
+    };
 
-    if (!this.hasErrors()) {
-      const payload = {
-        name: name,
-        email: email,
-        age: age,
-        password: password,
-        repassword: repassword
-      };
+    fetch(ApiUrlConstants.SIGN_UP, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => this.toData(res))
+      .then((data) => {
+        this.resetErrors();
 
-      fetch(ApiUrlConstants.SIGN_UP, {
-        method: 'POST',
-        body: payload,
-        headers: [{ 'Content-Type': 'application/json' }]
-      })
-        .then((res) => this.toData(res))
-        .then((data) => {
-          if (data.status === 201) {
-            // TODO store session in browser
-            this.props.history.push('/');
-          } else {
-            if (data.body === 'email_already_exists') {
-              this.showEmailAlreadyExistError();
-            }
+        if (data.status === 201) {
+          this.props.history.push('/');
+
+        } else {
+          const { errors } = data.body;
+          if (errors && errors.length) {
+            errors.forEach((error) => {
+              if (error.code === 'name_invalid') {
+                this.showError('name', error.message);
+              }
+              if (error.code === 'email_invalid' || error.code === 'email_already_exists') {
+                this.showError('email', error.message);
+              }
+              if (error.code === 'age_invalid') {
+                this.showError('age', error.message);
+              }
+              if (error.code === 'password_invalid' || error.code === 'passwords_not_matched') {
+                this.showError('password', error.message);
+              }
+            });
           }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   toData = (res) => {
@@ -93,52 +97,28 @@ class SignUp extends React.Component {
     });
   };
 
-  validateName = (name) => {
-    return name.value.length < NAME_LENGTH_MIN || name.value.length > NAME_LENGTH_MAX;
-  };
-
-  validateEmail = (email) => {
-    return email.value.length === 0 || !EmailValidator.isValid(email.value);
-  };
-
-  validatePassword = (password, repassword) => {
-    return (
-      password.value.length < PASSWORD_LENGTH_MIN ||
-      password.value.length > PASSWORD_LENGTH_MAX ||
-      password.value !== repassword.value
-    );
-  };
-
-  validate = (fieldName, hasError) => {
+  showError = (fieldName, errorMessage) => {
     this.setState((prevState) => {
       return {
         [fieldName]: {
           ...prevState[fieldName],
-          hasError: hasError
+          errorMessage: errorMessage
         }
       };
     });
   };
 
-  hasErrors = () => {
-    return Object.values(this.state)
-      .map((value) => value.hasError)
-      .filter((value) => value === true).length;
-  };
-
-  showEmailAlreadyExistError = () => {
-    this.setState((prevState) => {
-      return {
-        email: {
-          ...prevState.email,
-          hasError: true,
-          hasAlreadyExistedError: true
-        }
-      };
-    });
+  resetErrors = () => {
+    Object.values(this.state)
+    .forEach((field) => (field.errorMessage = ''));
   };
 
   render() {
+    const nameErrorMessage = this.state.name.errorMessage;
+    const emailErrorMessage = this.state.email.errorMessage;
+    const ageErrorMessage = this.state.age.errorMessage;
+    const passwordErrorMessage = this.state.password.errorMessage;
+
     return (
       <div className="form-v5-container">
         <div className="form-v5-content">
@@ -150,8 +130,8 @@ class SignUp extends React.Component {
                 <input type="text" name="name" required onChange={this.onInputChange} />
                 <FontAwesome className="fas" name="user" />
               </div>
-              {this.state.name.hasError ? (
-                <div className="error-message">Name must be between 4-20 characters</div>
+              {nameErrorMessage && nameErrorMessage.length ? (
+                <div className="error-message">{nameErrorMessage}</div>
               ) : null}
             </div>
             <div className="form-row">
@@ -160,12 +140,8 @@ class SignUp extends React.Component {
                 <input type="email" name="email" required onChange={this.onInputChange} />
                 <FontAwesome className="fas" name="envelope" />
               </div>
-              {this.state.email.hasError ? (
-                <div className="error-message">Email must be valid</div>
-              ) : null}
-
-              {this.state.email.hasAlreadyExistedError ? (
-                <div className="error-message">Email already exists</div>
+              {emailErrorMessage && emailErrorMessage.length ? (
+                <div className="error-message">{emailErrorMessage}</div>
               ) : null}
             </div>
             <div className="form-row">
@@ -174,17 +150,17 @@ class SignUp extends React.Component {
                 <input type="text" name="age" onChange={this.onInputChange} />
                 <FontAwesome className="fas" name="calendar" />
               </div>
+              {ageErrorMessage && ageErrorMessage.length ? (
+                <div className="error-message">{ageErrorMessage}</div>
+              ) : null}
             </div>
             <div className="form-row">
               <label htmlFor="password">Password</label>
               <div className="input-text">
                 <input type="password" name="password" required onChange={this.onInputChange} />
                 <FontAwesome className="fas" name="lock" />
-                {this.state.password.hasError ? (
-                  <>
-                    <div className="error-message">Passwords must be equal</div>
-                    <div className="error-message">Passwords must be between 8-12 characters</div>
-                  </>
+                {passwordErrorMessage && passwordErrorMessage.length ? (
+                  <div className="error-message">{passwordErrorMessage}</div>
                 ) : null}
               </div>
             </div>

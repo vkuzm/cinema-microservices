@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './schedule-selector-movie.styles.scss';
-import { getSessionUrl } from '../../AppUrlContants';
+import AppUrlConstants from '../../AppUrlConstants';
 
 const ScheduleSelectorMovie = ({ schedule, history }) => {
   const [selectedDay, setSelectedDay] = useState(0);
@@ -13,10 +13,10 @@ const ScheduleSelectorMovie = ({ schedule, history }) => {
   useEffect(() => {
     const sessions = schedule[selectedDay].sessions;
     setSelectedSessions(sessions);
-  }, [selectedDay]);
+  }, [schedule, selectedDay]);
 
   const onShowSession = (sessionId) => {
-    history.push(getSessionUrl(sessionId));
+    history.push(AppUrlConstants.getSessionUrl(sessionId));
   };
 
   return (

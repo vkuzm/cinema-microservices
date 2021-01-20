@@ -42,12 +42,12 @@ class Session extends React.Component {
   render() {
     return (
       <div className="session-overflow">
-        <div className="header">
+        <div className="header" onClick={() => this.goBack()}>
           <div className="back" />
           <div className="heading">
-            <div onClick={() => this.goBack()}>Back to home</div>
+            <div>Back to home</div>
           </div>
-          <div className="close" onClick={() => this.goBack()} />
+          <div className="close" />
         </div>
 
         <SessionDetailsWithSpinner

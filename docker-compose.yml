@@ -26,6 +26,7 @@ services:
        REDIS_URI: 'redis://redis-users:6379'
     ports:
       - 9229:9229 #debug port
+      - 8081:8081 #debug port
 
   # Cinema service
   cinema-service:
@@ -41,6 +42,7 @@ services:
 
   # Users service MongoDB
   mongo-users:
+    container_name: mongo-users
     image: mongo:4.4.2
     restart: on-failure
     volumes:
@@ -48,6 +50,7 @@ services:
 
   # Cinema service MongoDB
   mongo-cinema:
+    container_name: mongo-cinema
     image: mongo:4.4.2
     environment:
       MONGO_INITDB_ROOT_USERNAME: root

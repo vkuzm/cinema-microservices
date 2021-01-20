@@ -28,7 +28,7 @@
     ul {
       display: flex;
 
-      li a {
+      li a, li p {
         display: block;
         height: 56px;
         line-height: 56px;
@@ -40,10 +40,11 @@
         padding: 0 18px;
         color: #000000;
         transition: 0.25s;
+        margin: 0;
+      }
 
-        &:hover {
-          text-decoration: underline;
-        }
+      li a:hover {
+        text-decoration: underline;
       }
 
       &:first-child {

@@ -23,15 +23,19 @@ const messageConstants = {
   },
   PASSWORD_INVALID: {
     code: 'password_invalid',
-    message: `Password should be between ${Constants.PASSWORD_MIN_LENGTH} - ${Constants.PASSWORD_MAX_LENGTH} chars`
+    message: `Password should be between ${Constants.PASSWORD_MIN_LENGTH} - ${Constants.PASSWORD_MAX_LENGTH} characters`
   },
   PASSWORDS_NOT_MATCHED: {
     code: 'passwords_not_matched',
     message: 'Passwords not matched'
   },
-  NAME_EMPTY: {
-    code: 'name_empty',
-    message: 'Name is empty'
+  NAME_INVALID: {
+    code: 'name_invalid',
+    message: `Name should be between ${Constants.NAME_MIN_LENGTH} - ${Constants.NAME_MAX_LENGTH} characters`
+  },
+  AGE_INVALID: {
+    code: 'age_invalid',
+    message: 'Age must be a number'
   },
   LOGIN_ERROR: {
     code: 'login_error',

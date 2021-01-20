@@ -4,8 +4,8 @@ import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import './top-watched-carousel.styles.scss';
 import { ReactComponent as RatingIcon } from '../../assets/rating.svg';
-import ApiUrls from '../../ApiUrlConstants';
-import AppUrls from '../../AppUrlContants';
+import ApiUrlConstants from '../../ApiUrlConstants';
+import AppUrlConstants from '../../AppUrlConstants';
 
 const VISIBLE_SLIDES = 3;
 const NATURAL_SLIDE_WIDTH = 100;
@@ -22,7 +22,7 @@ class TopWatchedCarousel extends React.Component {
   }
 
   componentDidMount() {
-    fetch(ApiUrls.TOP_WATCHED_CAROUSEL)
+    fetch(ApiUrlConstants.TOP_WATCHED_CAROUSEL)
       .then((res) => res.json())
       .then((data) => {
         this.setState({ slides: data });
@@ -44,7 +44,7 @@ class TopWatchedCarousel extends React.Component {
           <Slider>
             {slides.map((slide, index) => (
               <Slide key={index} index={index} style={{ backgroundImage: `url(${slide.image})` }}>
-                <Link to={AppUrls.getMovieUrl(slide.movieId)} className="movie-box">
+                <Link to={AppUrlConstants.getMovieUrl(slide.movieId)} className="movie-box">
                   <div className="content">
                     <div className="name">{slide.name}</div>
                     <div className="rating">

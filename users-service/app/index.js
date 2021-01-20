@@ -8,6 +8,7 @@ const userController = require('./controllers/UserController');
 const loginController = require('./controllers/LoginController');
 const registerController = require('./controllers/RegisterController');
 const logoutController = require('./controllers/LogoutController');
+const authController = require('./controllers/AuthController');
 const auth = require('./services/AuthorizationService');
 
 // Setup app
@@ -15,7 +16,7 @@ const corsOptions = {
   origin: '*'
 };
 
-const app =  express();
+const app = express();
 app.use(cors(corsOptions));
 app.use(bodyParse.json());
 
@@ -30,11 +31,12 @@ mongoose.connect(keys.mongoURI, {
 
 // Controllers
 app.get('/', userController.getUsers(userModel));
-app.get('/:username', userController.getUser(userModel));
+app.get('/:userId', auth.requireAuth, userController.getUser(userModel));
 app.put('/edit', auth.requireAuth, userController.editUser(userModel));
 app.post('/login', loginController.login(userModel));
 app.post('/register', registerController.register(userModel));
 app.post('/logout', auth.requireAuth, logoutController.loginOut());
+app.post('/auth', authController.auth(userModel));
 
 // Run server
 app.listen(keys.serverPort, () => {

@@ -61,17 +61,17 @@ const handleUserEdit = async (userModel, data, token) => {
     const updatedUser = await userModel.findOneAndUpdate(filter, update);
     if (updatedUser) {
       return Promise.resolve(
-        Response.result(UserUpdatingSuccess.code, UserUpdatingSuccess.message)
+        Response.add(UserUpdatingSuccess.code, UserUpdatingSuccess.message)
       );
     } else {
       return Promise.reject(
-        Response.error(UserUpdatingFailure.code, UserUpdatingFailure.message)
+        Response.add(UserUpdatingFailure.code, UserUpdatingFailure.message)
       );
     }
 
   } else {
     return Promise.reject(
-      Response.error(NoUserJWTFound.code, NoUserJWTFound.message)
+      Response.add(NoUserJWTFound.code, NoUserJWTFound.message)
     );
   }
 };

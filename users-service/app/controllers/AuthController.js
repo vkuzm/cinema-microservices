@@ -1,27 +1,31 @@
-const redisService = require('./RedisService');
+const redisService = require('../services/RedisService');
 const redisClient = redisService.redisClient();
 const Response = require('../models/Response');
 const MessageConstants = require('../MessageConstants');
 const TokenInvalid = MessageConstants.AUTHORIZATION_TOKEN_INVALID;
 
-const requireAuth = (req, res, next) => {
+const auth = (userModel) => (req, res) => {
   const { authorization } = req.headers;
 
-  if (!authorization) {
+  handleAuthorization(authorization)
+  .then((userId) => {
+    userModel.findOne({ userId: userId }).lean()
+    .then((user) => {
+      res.status(200).send({
+        userId: user.userId,
+        name: user.name,
+        email: user.email
+      });
+    })
+    .catch((error) => {
+      res.status(400).send(error);
+    });
+  })
+  .catch(() => {
     res.status(401).send(
       Response.add(TokenInvalid.code, TokenInvalid.message)
     );
-  }
-
-  return handleAuthorization(authorization)
-    .then(() => {
-      return next();
-    })
-    .catch(() => {
-      res.status(401).send(
-        Response.add(TokenInvalid.code, TokenInvalid.message)
-      );
-    });
+  });
 };
 
 const handleAuthorization = (token) => {
@@ -36,5 +40,5 @@ const handleAuthorization = (token) => {
 };
 
 module.exports = {
-  requireAuth
+  auth
 };

@@ -2,8 +2,8 @@ const result = (code, message) => {
   return {
     result: {
       code: code,
-      message: message,
-    },
+      message: message
+    }
   };
 };
 
@@ -11,12 +11,18 @@ const error = (code, message) => {
   return {
     error: {
       code: code,
-      message: message,
-    },
+      message: message
+    }
+  };
+};
+
+const add = (code, message) => {
+  return {
+    code: code,
+    message: message
   };
 };
 
 module.exports = {
-  result,
-  error,
-};
+  add
+}

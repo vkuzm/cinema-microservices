@@ -15,8 +15,8 @@
     "sinon": "^9.2.2"
   },
   "scripts": {
-    "dev": "nodemon app/index.js",
-    "debug": "nodemon --inspect=0.0.0.0 app/index.js",
+    "dev": "nodemon --legacy-watch app/index.js",
+    "debug": "nodemon --legacy-watch --inspect=0.0.0.0 app/index.js",
     "start": "node app/index.js",
     "test": "mocha --reporter=spec --recursive 'test/**/*.spec.js'"
   },

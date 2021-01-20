@@ -1,3 +1,5 @@
+
+const ApiBaseUrl = 'http://localhost:8081';
 const ApiUrlConstants = {
   SCHEDULE: '/json-placeholder/schedules.json', //SCHEDULE: 'http://localhost:8082/schedule',
   UPCOMING: '/json-placeholder/upcoming.json', //UPCOMING: 'http://localhost:8082/movies/upcoming',
@@ -5,8 +7,11 @@ const ApiUrlConstants = {
   TOP_WATCHED_CAROUSEL: '/json-placeholder/top-watched-carousel.json', //TOP_WATCHED_CAROUSEL: 'http://localhost:8082/movies/top-carousel'
   MOVIE: '/json-placeholder/movie.json',
   SESSION: '/json-placeholder/session.json',
-  SIGN_IN: 'http://localhost:8081/login',
-  SIGN_UP: 'http://localhost:8081/registration',
-};
+  SIGN_IN: ApiBaseUrl + '/login',
+  SIGN_UP: ApiBaseUrl + '/register',
+  LOG_OUT: ApiBaseUrl + '/logout',
+  AUTH: ApiBaseUrl + '/auth',
+  PROFILE: ApiBaseUrl + '/',
+};  
 
-module.exports = Object.freeze(ApiUrlConstants);
+export default Object.freeze(ApiUrlConstants);

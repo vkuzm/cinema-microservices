@@ -27,10 +27,10 @@ const handleSignIn = async (userModel, data) => {
   }
 
   try {
-    const hashedPassword = bcrypt.hash(password, Constants.PASSWORD_SALT);
-    const user = await userModel.findOne({ email: email, password: hashedPassword }).lean();
+    const user = await userModel.findOne({ email: email }).lean();
+    const isValid = bcrypt.compareSync(password, user.password);
 
-    if (user) {
+    if (isValid) {
       return saveToken(user.userId, user.email);
     } else {
       return emailPasswordInvalidError();
@@ -64,7 +64,7 @@ const signToken = (userId, email) => {
 
 const emailPasswordInvalidError = () => {
   return Promise.reject(
-    Response.error(EmailPasswordInvalid.code, EmailPasswordInvalid.message)
+    Response.add(EmailPasswordInvalid.code, EmailPasswordInvalid.message)
   );
 };
 

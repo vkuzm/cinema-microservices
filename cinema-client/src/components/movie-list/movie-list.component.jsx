@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './movies-list.styles.scss';
-import AppUrls from '../../AppUrlContants';
+import AppUrls from '../../AppUrlConstants';
 
 const MoviesList = ({ movies }) => {
   return (

@@ -6,9 +6,7 @@ const getSessionUrl = (sessionId) => {
   return `/session/${sessionId}`;
 };
 
-const AppUrls = {
+export default Object.freeze({
   getMovieUrl,
   getSessionUrl
-};
-
-module.exports = Object.freeze(AppUrls);
+});

@@ -3,8 +3,8 @@ import FontAwesome from 'react-fontawesome';
 import '../sign-up/sign-up.styles.scss';
 import './sign-in.styles.scss';
 import EmailValidator from '../../utils/EmailValidator';
-import { getSessionUrl } from '../../AppUrlContants';
 import ApiUrlConstants from '../../ApiUrlConstants';
+import { saveAuthToken } from '../../services/Auth';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -33,14 +33,17 @@ class SignIn extends React.Component {
 
       fetch(ApiUrlConstants.SIGN_IN, {
         method: 'POST',
-        body: payload,
-        headers: [{ 'Content-Type': 'application/json' }]
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' }
       })
         .then((res) => this.toData(res))
         .then((data) => {
-          if (data.status === 200) {
-            // TODO store session in browser
+          if (data.status === 201) {
+            saveAuthToken(data.body.token);
             this.props.history.push('/');
+            this.props.setSignIn( true)
+          } else {
+            this.setState({ hasError: true })
           }
         })
         .catch((err) => {
@@ -49,6 +52,15 @@ class SignIn extends React.Component {
     } else {
       this.setState({ hasError: true });
     }
+  };
+
+  toData = (res) => {
+    return res.json().then((json) => {
+      return {
+        status: res.status,
+        body: json
+      };
+    });
   };
 
   render() {
