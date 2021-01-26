@@ -12,6 +12,7 @@ const ApiUrlConstants = {
   LOG_OUT: ApiBaseUrl + '/logout',
   AUTH: ApiBaseUrl + '/auth',
   PROFILE: ApiBaseUrl + '/',
+  FAVORITES: ApiBaseUrl + '/favorites'
 };  
 
 export default Object.freeze(ApiUrlConstants);

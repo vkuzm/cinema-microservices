@@ -1,5 +1,3 @@
-import react, { useEffect, useState } from 'react';
-
 const Profile = ({ user }) => {
     return (
         <div className="wrapper page">

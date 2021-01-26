@@ -1,9 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './movie-details.styles.scss';
 import ScheduleSelectorMovie from '../schedule-selector-movie/schedule-selector-movie.component';
 import ScheduleMovies from '../schedule-movies/schedule-movies.component';
+import FontAwesome from 'react-fontawesome';
+import ApiUrlConstants from '../../ApiUrlConstants';
+import { getAuthToken } from '../../services/Auth';
 
 const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
+  const [favorited, setFavorited] = useState(false);
+
+  const onFavoriteToggle = (movieId) => {
+    if (favorited) {
+      setFavorited(false);
+    } else {
+      setFavorited(true);
+    }
+
+    if (movieId) {
+      fetch(ApiUrlConstants.FAVORITES, {
+        method: 'POST',
+        body: JSON.stringify({
+          movieId: movieId
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getAuthToken(),
+        }
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data === 'added') {
+            console.log("added")
+          } else if (data === 'removed') {
+            console.log("removed")
+          } else {
+            console.log("something went wrong")  
+          }
+        })
+    }
+  }
+
   return (
     <div className="movie">
       <ScheduleSelectorMovie schedule={schedule} {...props} />
@@ -12,6 +48,16 @@ const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
         <div className="wrapper">
           <div className="poster">
             <img src={info.image} alt={info.name} />
+
+            { // TODO make redux and check signIn state from App.js}
+              getAuthToken() ?
+                <div className={`favorite ${favorited ? 'active': ''}`} onClick={() => onFavoriteToggle(info.movieId)}>
+                  <FontAwesome className="fas" name="heart" title="Add to your favorite list in order to watch it later" />
+                </div>
+                :
+                null
+            }
+
           </div>
           <div className="details">
             <div className="genres">

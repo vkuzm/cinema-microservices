@@ -70,7 +70,7 @@ services:
   # Tools
   mongo-express:
     image: mongo-express:0.54.0
-    restart: on-failure
+    restart: "no"
     ports:
       - 9999:8081
     environment:
