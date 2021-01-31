@@ -17,7 +17,13 @@ class Movie extends React.Component {
   }
 
   componentDidMount() {
-    fetch(ApiUrls.MOVIE)
+    const match = this.props.match;
+    const movieId = Number.parseInt(match.params.movieId);
+
+    console.log(ApiUrls.MOVIES + movieId);
+    
+    if (movieId && movieId > 0) {
+    fetch(ApiUrls.MOVIES + movieId)
       .then((res) => res.json())
       .then((data) => {
         this.setState({ movieData: data }, () => {
@@ -25,18 +31,17 @@ class Movie extends React.Component {
         });
       })
       .catch((err) => console.log(err));
+    }
   }
 
   render() {
     const info = this.state.movieData;
-    const { schedule, recommendations } = info;
-
     return (
       <MovieDetailsWithSpinner
         isLoading={this.state.isLoading}
         info={info}
-        schedule={schedule}
-        recommendations={recommendations}
+        schedule={info.schedule}
+        recommendations={info.recommendations}
         {...this.props}
       />
     );

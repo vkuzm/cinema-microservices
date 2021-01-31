@@ -21,8 +21,12 @@ public class SequenceGeneratorService {
 
   public String generateSequence(String seqName) {
     DatabaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
-        new Update().inc("seq", 1), options().returnNew(true).upsert(true),
-        DatabaseSequence.class);
+        new Update().inc("seq", 1), options().returnNew(true).upsert(true), DatabaseSequence.class);
     return String.valueOf(!Objects.isNull(counter) ? counter.getSeq() : 1);
+  }
+
+  public void resetSequence(String seqName) {
+    mongoOperations.findAndModify(query(where("_id").is(seqName)),
+          new Update().set("seq", 0), options().returnNew(true).upsert(true), DatabaseSequence.class);
   }
 }

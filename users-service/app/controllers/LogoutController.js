@@ -5,24 +5,24 @@ const MessageConstants = require('../MessageConstants');
 const SessionRemoved = MessageConstants.AUTHORIZATION_SESSION_REMOVED;
 const TokenInvalid = MessageConstants.AUTHORIZATION_TOKEN_INVALID;
 
-const loginOut = () => (req, res) => {
+const logOut = () => (req, res) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
     return res.status(401).send(
-      Response.error(TokenInvalid.code, TokenInvalid.message)
+      Response.add(TokenInvalid.code, TokenInvalid.message)
     );
   }
 
   return removeUserSession(authorization)
     .then(() => {
-      res.send(
-        Response.result(SessionRemoved.code, SessionRemoved.message)
+      return res.send(
+        Response.add(SessionRemoved.code, SessionRemoved.message)
       );
     })
     .catch(() => {
-      res.status(401).send(
-        Response.error(TokenInvalid.code, TokenInvalid.message)
+      return res.status(401).send(
+        Response.add(TokenInvalid.code, TokenInvalid.message)
       );
     });
 };
@@ -39,5 +39,5 @@ const removeUserSession = (token) => {
 };
 
 module.exports = {
-  loginOut
+  logOut
 };

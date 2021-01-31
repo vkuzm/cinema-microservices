@@ -6,6 +6,7 @@ import './top-watched-carousel.styles.scss';
 import { ReactComponent as RatingIcon } from '../../assets/rating.svg';
 import ApiUrlConstants from '../../ApiUrlConstants';
 import AppUrlConstants from '../../AppUrlConstants';
+import WithSpinnerWrapper from '../with-spinner/with-spinner-wrapper.component';
 
 const VISIBLE_SLIDES = 3;
 const NATURAL_SLIDE_WIDTH = 100;
@@ -17,6 +18,7 @@ class TopWatchedCarousel extends React.Component {
     super(props);
 
     this.state = {
+      isLoading: true,
       slides: []
     };
   }
@@ -25,7 +27,9 @@ class TopWatchedCarousel extends React.Component {
     fetch(ApiUrlConstants.TOP_WATCHED_CAROUSEL)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ slides: data });
+        this.setState({ slides: data }, () => {
+          this.setState({ isLoading: false });
+        });
       })
       .catch((err) => console.log(err));
   }
@@ -34,29 +38,31 @@ class TopWatchedCarousel extends React.Component {
     const slides = this.state.slides;
 
     return (
-      <div className="top-watched">
-        <CarouselProvider
-          naturalSlideWidth={NATURAL_SLIDE_WIDTH}
-          naturalSlideHeight={NATURAL_SLIDE_HEIGHT}
-          visibleSlides={VISIBLE_SLIDES}
-          totalSlides={slides.length}
-        >
-          <Slider>
-            {slides.map((slide, index) => (
-              <Slide key={index} index={index} style={{ backgroundImage: `url(${slide.image})` }}>
-                <Link to={AppUrlConstants.getMovieUrl(slide.movieId)} className="movie-box">
-                  <div className="content">
-                    <div className="name">{slide.name}</div>
-                    <div className="rating">
-                      <RatingIcon className="rating-icon" /> {slide.rating} {RATING_PREFIX}
+      <WithSpinnerWrapper isLoading={this.state.isLoading}>
+        <div className="top-watched">
+          <CarouselProvider
+            naturalSlideWidth={NATURAL_SLIDE_WIDTH}
+            naturalSlideHeight={NATURAL_SLIDE_HEIGHT}
+            visibleSlides={VISIBLE_SLIDES}
+            totalSlides={slides.length}
+          >
+            <Slider>
+              {slides.map((slide, index) => (
+                <Slide key={index} index={index} style={{ backgroundImage: `url(${slide.image})` }}>
+                  <Link to={AppUrlConstants.getMovieUrl(slide.movieId)} className="movie-box">
+                    <div className="content">
+                      <div className="name">{slide.name}</div>
+                      <div className="rating">
+                        <RatingIcon className="rating-icon" /> {slide.rating} {RATING_PREFIX}
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </Slide>
-            ))}
-          </Slider>
-        </CarouselProvider>
-      </div>
+                  </Link>
+                </Slide>
+              ))}
+            </Slider>
+          </CarouselProvider>
+        </div>
+      </WithSpinnerWrapper>
     );
   }
 }

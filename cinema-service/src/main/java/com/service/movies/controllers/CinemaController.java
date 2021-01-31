@@ -1,5 +1,6 @@
 package com.service.movies.controllers;
 
+import com.service.movies.dto.CinemaDetailsDto;
 import com.service.movies.dto.CinemaDto;
 import com.service.movies.dto.UpcomingDto;
 import com.service.movies.services.CinemaService;
@@ -21,9 +22,15 @@ public class CinemaController {
     this.cinemaService = moviesService;
   }
 
+  @GetMapping
+  public ResponseEntity<List<CinemaDto>> getMovies() {
+    final List<CinemaDto> cinemaDto = cinemaService.getAllMovies();
+    return ResponseEntity.ok(cinemaDto);
+  }
+
   @GetMapping("/{id}")
-  public ResponseEntity<CinemaDto> getMovieById(@PathVariable String id) {
-    final Optional<CinemaDto> cinemaDto = cinemaService.getById(id);
+  public ResponseEntity<CinemaDetailsDto> getMovieById(@PathVariable String id) {
+    final Optional<CinemaDetailsDto> cinemaDto = cinemaService.getByMovieId(id);
 
     if (cinemaDto.isPresent()) {
       return ResponseEntity.ok(cinemaDto.get());

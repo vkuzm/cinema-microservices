@@ -1,7 +1,8 @@
 package com.service.movies.dto;
 
-import java.time.LocalDate;
 import lombok.Data;
+
+import java.time.LocalDate;
 
 @Data
 public class CinemaDto {
@@ -10,9 +11,8 @@ public class CinemaDto {
   private String image;
   private String name;
   private String description;
-  private String restriction;
   private double rating;
   private LocalDate dateStart;
   private LocalDate dateEnd;
-  private int visited;
+  private int watched;
 }

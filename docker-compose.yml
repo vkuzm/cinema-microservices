@@ -33,7 +33,7 @@ services:
    build:
      dockerfile: Dockerfile
      context: ./cinema-service
-   restart: on-failure
+   restart: "no"
    environment:
      SERVER_PORT: 8082
      MONGO_URL: mongo-cinema

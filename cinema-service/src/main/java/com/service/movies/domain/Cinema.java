@@ -14,10 +14,10 @@ public class Cinema {
   public static final String SEQUENCE_NAME = "cinema_sequence";
 
   @Id
-  private String id;
   private String movieId;
+  private String tmdbMovieId;
   private LocalDate dateStart;
   private LocalDate dateEnd;
   private boolean upcoming;
-  private int visited;
+  private int watched;
 }

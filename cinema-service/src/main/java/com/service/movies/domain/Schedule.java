@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Schedule {
 
   @Id
-  private String id;
+  private String scheduleId;
   private LocalDate date;
   private List<ScheduleMovie> movies = new ArrayList<>();
 }

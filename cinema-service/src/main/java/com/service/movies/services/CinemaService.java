@@ -1,5 +1,6 @@
 package com.service.movies.services;
 
+import com.service.movies.dto.CinemaDetailsDto;
 import com.service.movies.dto.CinemaDto;
 import com.service.movies.dto.UpcomingDto;
 import java.util.List;
@@ -13,5 +14,7 @@ public interface CinemaService {
 
   List<CinemaDto> getTopCarousel();
 
-  Optional<CinemaDto> getById(String id);
+  Optional<CinemaDetailsDto> getByMovieId(String movieId);
+
+  List<CinemaDto> getAllMovies();
 }

@@ -7,14 +7,10 @@ import ApiUrlConstants from '../../ApiUrlConstants';
 import { getAuthToken } from '../../services/Auth';
 
 const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
-  const [favorited, setFavorited] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   const onFavoriteToggle = (movieId) => {
-    if (favorited) {
-      setFavorited(false);
-    } else {
-      setFavorited(true);
-    }
+    setFavorite(!favorite);
 
     if (movieId) {
       fetch(ApiUrlConstants.FAVORITES, {
@@ -51,7 +47,7 @@ const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
 
             { // TODO make redux and check signIn state from App.js}
               getAuthToken() ?
-                <div className={`favorite ${favorited ? 'active': ''}`} onClick={() => onFavoriteToggle(info.movieId)}>
+                <div className={`favorite ${favorite ? 'active': ''}`} onClick={() => onFavoriteToggle(info.movieId)}>
                   <FontAwesome className="fas" name="heart" title="Add to your favorite list in order to watch it later" />
                 </div>
                 :

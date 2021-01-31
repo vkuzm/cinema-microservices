@@ -11,8 +11,10 @@ const ScheduleSelectorMovie = ({ schedule, history }) => {
   };
 
   useEffect(() => {
-    const sessions = schedule[selectedDay].sessions;
-    setSelectedSessions(sessions);
+    if (schedule.length) {
+      const sessions = schedule[selectedDay].sessions;
+      setSelectedSessions(sessions);
+    }
   }, [schedule, selectedDay]);
 
   const onShowSession = (sessionId) => {

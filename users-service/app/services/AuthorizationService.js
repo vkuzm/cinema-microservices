@@ -8,7 +8,7 @@ const requireAuth = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    res.status(401).send(
+    return res.status(401).send(
       Response.add(TokenInvalid.code, TokenInvalid.message)
     );
   }
@@ -18,7 +18,7 @@ const requireAuth = (req, res, next) => {
       return next();
     })
     .catch(() => {
-      res.status(401).send(
+      return res.status(401).send(
         Response.add(TokenInvalid.code, TokenInvalid.message)
       );
     });

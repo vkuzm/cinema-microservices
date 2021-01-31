@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const UserDto = require('../dto/UserDto');
 const Constants = require('../Constants');
 const Response = require('../models/Response');
 const MessageConstants = require('../MessageConstants');
@@ -15,7 +16,12 @@ const NoUserJWTFound = MessageConstants.NO_USER_JWT_FOUND;
 
 const getUsers = (userModel) => async (req, res) => {
   const users = await userModel.find().lean();
-  res.send({ users });
+
+  if (users && users.length) {
+    const usersDto = users.map((user => convertToDto(user)));
+    return res.send(usersDto);
+  }
+  return res.send({});
 };
 
 const getUser = (userModel) => async (req, res) => {
@@ -23,9 +29,9 @@ const getUser = (userModel) => async (req, res) => {
   const user = await userModel.findOne({ userId: userId }).lean();
 
   if (user) {
-    res.send({ user });
+    return res.send(convertToDto(user));
   } else {
-    res.send({});
+    return res.send({});
   }
 };
 
@@ -35,10 +41,10 @@ const editUser = (userModel) => async (req, res) => {
 
   handleUserEdit(userModel, formData, token)
     .then((result) => {
-      res.send(result);
+      return res.send(result);
     })
     .catch((error) => {
-      res.send(error);
+      return res.send(error);
     });
 };
 
@@ -125,6 +131,16 @@ const isEmailExisted = async (userModel, email) => {
   const user = await userModel.findOne({ email: email }).lean();
   return user !== null;
 };
+
+const convertToDto = (user) => {
+  const userDto = new UserDto();
+  userDto.userId = user.userId;
+  userDto.name = user.name;
+  userDto.email = user.email;
+  userDto.age = user.age;
+  userDto.joined = user.joined;
+  return userDto;
+}
 
 module.exports = {
   getUsers,

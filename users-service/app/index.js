@@ -31,11 +31,11 @@ mongoose.connect(keys.mongoURI, {
 
 // Controllers
 app.get('/', userController.getUsers(userModel));
-app.get('/:userId', auth.requireAuth, userController.getUser(userModel));
+app.get('/:userId', userController.getUser(userModel));
 app.put('/edit', auth.requireAuth, userController.editUser(userModel));
 app.post('/login', loginController.login(userModel));
 app.post('/register', registerController.register(userModel));
-app.post('/logout', auth.requireAuth, logoutController.loginOut());
+app.post('/logout', auth.requireAuth, logoutController.logOut());
 app.post('/auth', authController.auth(userModel));
 
 // Run server
