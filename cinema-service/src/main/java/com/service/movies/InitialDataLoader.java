@@ -10,6 +10,7 @@ import com.service.movies.services.SequenceGeneratorService;
 
 import java.time.LocalDate;
 
+import com.service.movies.services.SessionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,7 @@ public class InitialDataLoader implements CommandLineRunner {
     private final CinemaRepository cinemaRepository;
     private final ScheduleRepository scheduleRepository;
     private final SequenceGeneratorService sequenceGeneratorService;
+    private final SessionService sessionService;
 
     private String movieId1;
     private String movieId2;
@@ -38,10 +40,12 @@ public class InitialDataLoader implements CommandLineRunner {
     private String movieId14;
 
     public InitialDataLoader(CinemaRepository cinemaRepository, ScheduleRepository scheduleRepository,
-                             SequenceGeneratorService sequenceGeneratorService) {
+                             SequenceGeneratorService sequenceGeneratorService,
+                             SessionService sessionService) {
         this.cinemaRepository = cinemaRepository;
         this.scheduleRepository = scheduleRepository;
         this.sequenceGeneratorService = sequenceGeneratorService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -191,6 +195,8 @@ public class InitialDataLoader implements CommandLineRunner {
         scheduleRepository.save(schedule5);
         scheduleRepository.save(schedule6);
         scheduleRepository.save(schedule7);
+
+        sessionService.addSessions(schedule1, schedule2, schedule3, schedule4, schedule5, schedule6, schedule7);
     }
 
     private void initTopWatchedCinema() {

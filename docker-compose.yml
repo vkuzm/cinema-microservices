@@ -24,9 +24,9 @@ services:
        SERVER_PORT: 8081
        MONGO_URI: 'mongodb://mongo-users:27017'
        REDIS_URI: 'redis://redis-users:6379'
-    ports:
-      - 9229:9229 #debug port
-      - 8081:8081 #debug port
+    #ports:
+      #- 9229:9229 #debug port
+      #- 8081:8081 #app port
 
   # Cinema service
   cinema-service:
@@ -38,7 +38,7 @@ services:
      SERVER_PORT: 8082
      MONGO_URL: mongo-cinema
      MONGO_PORT: 27017
-     API_KEY: ''
+     RABBITMQ_URI: 'amqp://rabbitmq:5672'
 
   # Users service MongoDB
   mongo-users:
@@ -59,13 +59,23 @@ services:
     volumes:
       - ./cinema-service/data:/data/db
     ports:
-      - 27017:27017
-
+      - 27017:27017 # dev purpose
 
   # Users service Redis
   redis-users:
     image: redis:6.0.9
     restart: on-failure
+
+  # Rabbit MQ
+  rabbitmq:
+    image: rabbitmq:3.8.11-management
+    restart: on-failure
+    container_name: rabbitmq
+    volumes:
+      - ./rabbitmq/data:/var/lib/rabbitmq
+    ports:
+      - 5672:5672 # dev purpose
+      - 15672:15672
 
   # Tools
   mongo-express:

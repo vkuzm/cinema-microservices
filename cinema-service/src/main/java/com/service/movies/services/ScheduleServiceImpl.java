@@ -68,7 +68,6 @@ public class ScheduleServiceImpl implements ScheduleService {
           scheduleMovieDto.setRating(movie.getVoteAverage());
         }
 
-        // TODO IN BOOKING MICROSERVICE
         for (SessionDto session : scheduleMovieDto.getSessions()) {
           LocalTime sessionTime = LocalTime.from(timeFormat.parse(session.getStartTime()));
           session.setAvailable(currentTime.isBefore(sessionTime));

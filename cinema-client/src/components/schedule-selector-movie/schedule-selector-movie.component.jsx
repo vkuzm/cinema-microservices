@@ -50,7 +50,7 @@ const ScheduleSelectorMovie = ({ schedule, history }) => {
                   <div
                     onClick={() => onShowSession(session.sessionId)}
                     key={index}
-                    className="session"
+                    className={session.available ? 'session' : 'session deact'}
                   >
                     {session.startTime} <p className="attr" />
                   </div>
