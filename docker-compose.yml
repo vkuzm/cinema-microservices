@@ -40,6 +40,23 @@ services:
      MONGO_PORT: 27017
      RABBITMQ_URI: 'amqp://rabbitmq:5672'
 
+  # Booking service
+  booking-service:
+    build:
+      dockerfile: Dockerfile
+      context: ./booking-service
+    restart: on-failure  
+    volumes:
+      - /app/node_modules
+      - ./booking-service:/app
+    environment:
+       SERVER_PORT: 8083
+       RABBITMQ_URI: 'amqp://rabbitmq:5672'
+       POSTGRES_URI: postgres://admin:password@postgres:5432/booking
+    ports:
+      - 9229:9229 #debug port
+      - 8083:8083 #app port
+
   # Users service MongoDB
   mongo-users:
     container_name: mongo-users
@@ -60,6 +77,23 @@ services:
       - ./cinema-service/data:/data/db
     ports:
       - 27017:27017 # dev purpose
+
+  # Booking service postgress
+  postgres-booking:
+    build:
+      dockerfile: Dockerfile
+      context: ./booking-service/database
+    container_name: postgres-booking
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_URL: postgres://admin:password@localhost:5432/booking
+      POSTGRES_DB: booking
+      POSTGRES_HOST: postgres
+    volumes:
+      - ./booking-service/database/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432 # dev purpose
 
   # Users service Redis
   redis-users:

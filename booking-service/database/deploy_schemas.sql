@@ -1,0 +1,9 @@
+BEGIN TRANSACTION;
+
+CREATE TABLE sessions (
+    id serial PRIMARY KEY,
+    sessionId VARCHAR(100) UNIQUE NOT NULL,
+    movieId VARCHAR(100) NOT NULL
+);
+
+COMMIT;
