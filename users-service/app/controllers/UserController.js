@@ -26,13 +26,18 @@ const getUsers = (userModel) => async (req, res) => {
 
 const getUser = (userModel) => async (req, res) => {
   const userId = req.params['userId'];
-  const user = await userModel.findOne({ userId: userId }).lean();
 
-  if (user) {
-    return res.send(convertToDto(user));
-  } else {
-    return res.send({});
+  if (isNan(userId)) {
+    const user = await userModel.findOne({ userId: userId }).lean();
+
+    if (user) {
+      return res.send(convertToDto(user));
+    } else {
+      return res.send({});
+    }
   }
+
+  return res.send({});
 };
 
 const editUser = (userModel) => async (req, res) => {

@@ -20,25 +20,31 @@ services:
     volumes:
       - /app/node_modules
       - ./users-service:/app
+    depends_on:
+      - mongo-users
+      - redis-users
     environment:
        SERVER_PORT: 8081
-       MONGO_URI: 'mongodb://mongo-users:27017'
-       REDIS_URI: 'redis://redis-users:6379'
-    #ports:
+       MONGO_URI: mongodb://mongo-users:27017
+       REDIS_URI: redis://redis-users:6379
+    ports:
       #- 9229:9229 #debug port
-      #- 8081:8081 #app port
+      - 8081:8081 #app port
 
   # Cinema service
   cinema-service:
    build:
      dockerfile: Dockerfile
      context: ./cinema-service
-   restart: "no"
+   restart: on-failure
+   depends_on:
+     - rabbitmq
    environment:
      SERVER_PORT: 8082
      MONGO_URL: mongo-cinema
      MONGO_PORT: 27017
-     RABBITMQ_URI: 'amqp://rabbitmq:5672'
+     SPRING_RABBITMQ_HOST: rabbitmq
+     API_KEY: '0e3a0b2d5d7e580f9cc771bea41da413' #TMDB API KEY
 
   # Booking service
   booking-service:
@@ -49,10 +55,13 @@ services:
     volumes:
       - /app/node_modules
       - ./booking-service:/app
+    depends_on:
+      - rabbitmq
+      - postgres-booking
     environment:
        SERVER_PORT: 8083
-       RABBITMQ_URI: 'amqp://rabbitmq:5672'
-       POSTGRES_URI: postgres://admin:password@postgres:5432/booking
+       RABBITMQ_URI: amqp://rabbitmq:5672
+       POSTGRES_URI: postgres://admin:password@postgres-booking:5432/booking
     ports:
       - 9229:9229 #debug port
       - 8083:8083 #app port
