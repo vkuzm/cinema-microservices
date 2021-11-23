@@ -1,7 +1,7 @@
 
 const ApiBaseUrl = 'http://localhost:8080';
 const ApiUrlConstants = {
-  SCHEDULE: ApiBaseUrl + '/schedule/',
+  SCHEDULE: ApiBaseUrl + '/cinema/schedule/',
   UPCOMING: ApiBaseUrl + '/cinema/movies/upcoming/',
   TOP_WATCHED: ApiBaseUrl + '/cinema/movies/top/',
   TOP_WATCHED_CAROUSEL: ApiBaseUrl + '/cinema/movies/top-carousel/',
