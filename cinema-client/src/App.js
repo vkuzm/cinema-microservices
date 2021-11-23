@@ -78,7 +78,7 @@ const App = () => {
           <Route exact path="/profile" component={() => <Profile user={user} />} />
         </Switch>
       </section>
-      <Footer />
+      <Footer user={user} signOut={signOut} />
     </div>
   );
 };

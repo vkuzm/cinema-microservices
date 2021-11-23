@@ -12,11 +12,11 @@ services:
       - 8080:80
 
   # Client service
-  #client-service:
-    #build:
-      #dockerfile: Dockerfile
-      #context: ./cinema-client
-    #restart: on-failure
+  client-service:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./cinema-client
+    restart: on-failure
 
   # Users service
   users-service:
@@ -128,10 +128,10 @@ services:
       - 15672:15672
 
   # Tools
-  mongo-express:
-    image: mongo-express:0.54.0
-    restart: "no"
-    ports:
-      - 9999:8081
-    environment:
-      ME_CONFIG_MONGODB_SERVER: mongo-cinema
+#  mongo-express:
+#    image: mongo-express:0.54.0
+#    restart: "no"
+#    ports:
+#      - 9999:8081
+#    environment:
+#      ME_CONFIG_MONGODB_SERVER: mongo-cinema

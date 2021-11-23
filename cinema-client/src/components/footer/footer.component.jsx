@@ -5,7 +5,7 @@ import { ReactComponent as FacebookIcon } from '../../assets/soc-fb.svg';
 import { ReactComponent as InstagramIcon } from '../../assets/soc-inst.svg';
 import { ReactComponent as YoutubeIcon } from '../../assets/soc-yt.svg';
 
-const Footer = () => {
+const Footer = ({ user, signOut }) => {
   return (
     <footer className="footer">
       <div className="wrapper">
@@ -29,9 +29,19 @@ const Footer = () => {
 
             <div className="footer__section">
               <p className="footer__section__heading">Account</p>
-              <p><Link to="/sign-in">Sign In</Link></p>
-              <p><Link to="/sign-up">Sign Up</Link></p>
+              {user ?
+                  <>
+                    <p><Link to="/profile">Profile</Link></p>
+                    <p><Link to="/" onClick={() => signOut()}>Log Out</Link></p>
+                  </>
+                  :
+                  <>
+                    <p><Link to="/sign-in">Sign In</Link></p>
+                    <p><Link to="/sign-up">Sign Up</Link></p>
+                  </>
+              }
             </div>
+
 
             <div className="footer__section">
               <p className="footer__section__heading">Follow us</p>
