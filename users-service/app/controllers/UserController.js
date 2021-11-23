@@ -27,9 +27,8 @@ const getUsers = (userModel) => async (req, res) => {
 const getUser = (userModel) => async (req, res) => {
   const userId = req.params['userId'];
 
-  if (isNan(userId)) {
+  if (isNumeric(userId)) {
     const user = await userModel.findOne({ userId: userId }).lean();
-
     if (user) {
       return res.send(convertToDto(user));
     } else {
@@ -146,6 +145,8 @@ const convertToDto = (user) => {
   userDto.joined = user.joined;
   return userDto;
 }
+
+const isNumeric = (num) => !isNaN(num);
 
 module.exports = {
   getUsers,

@@ -1,11 +1,11 @@
 
 const ApiBaseUrl = 'http://localhost:8080';
 const ApiUrlConstants = {
-  SCHEDULE: 'http://localhost:8082/schedule/', // ApiBaseUrl + '/schedule/',
-  UPCOMING: 'http://localhost:8082/movies/upcoming/', // ApiBaseUrl + '/cinema/movies/upcoming/',
-  TOP_WATCHED: 'http://localhost:8082/movies/top/', // ApiBaseUrl + '/cinema/movies/top/'
-  TOP_WATCHED_CAROUSEL: 'http://localhost:8082/movies/top-carousel/', // ApiBaseUrl + '/cinema/movies/top-carousel/'
-  MOVIES: 'http://localhost:8082/movies/', //ApiBaseUrl + '/cinema/movies/'
+  SCHEDULE: ApiBaseUrl + '/schedule/',
+  UPCOMING: ApiBaseUrl + '/cinema/movies/upcoming/',
+  TOP_WATCHED: ApiBaseUrl + '/cinema/movies/top/',
+  TOP_WATCHED_CAROUSEL: ApiBaseUrl + '/cinema/movies/top-carousel/',
+  MOVIES: ApiBaseUrl + '/cinema/movies/',
   SESSION: '/json-placeholder/session.json',
   USERS: ApiBaseUrl + '/users/',
   SIGN_IN: ApiBaseUrl + '/users/login/',

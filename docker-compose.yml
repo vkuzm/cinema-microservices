@@ -2,14 +2,21 @@ version: '3.1'
 
 services:
 
-  # Gateway
-  nginx-gateway:
+  # Proxy
+  nginx-proxy:
     build:
       dockerfile: Dockerfile
-      context: ./nginx-gateway
+      context: ./nginx-proxy
     restart: on-failure
     ports:
       - 8080:80
+
+  # Client service
+  #client-service:
+    #build:
+      #dockerfile: Dockerfile
+      #context: ./cinema-client
+    #restart: on-failure
 
   # Users service
   users-service:
@@ -27,9 +34,9 @@ services:
        SERVER_PORT: 8081
        MONGO_URI: mongodb://mongo-users:27017
        REDIS_URI: redis://redis-users:6379
-    ports:
+    #ports:
       #- 9229:9229 #debug port
-      - 8081:8081 #app port
+      #- 8081:8081 #app port
 
   # Cinema service
   cinema-service:
