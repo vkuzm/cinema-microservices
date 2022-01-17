@@ -12,9 +12,10 @@ section {
   padding: 0 24px;
 }
 .wrapper {
-  width: 1280px;
+  max-width: 1280px;
   margin: 0 auto;
   box-sizing: border-box;
+  padding: 0 30px;
 }
 .wrapper.page {
   padding-top: 40px;

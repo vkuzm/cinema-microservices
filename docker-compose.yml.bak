@@ -51,7 +51,7 @@ services:
      MONGO_URL: mongo-cinema
      MONGO_PORT: 27017
      SPRING_RABBITMQ_HOST: rabbitmq
-     API_KEY: '' #TMDB API KEY
+     API_KEY: '0e3a0b2d5d7e580f9cc771bea41da413' #TMDB API KEY
 
   # Booking service
   booking-service:
