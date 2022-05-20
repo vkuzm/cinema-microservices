@@ -11,21 +11,14 @@ class SessionDetails extends React.Component {
     super(props);
 
     this.state = {
-      selectedSeats: new Set(),
-      processBooking: false
+      selectedSeats: new Set()
     };
   }
 
   onSeatSelect = (seat) => {
-    //console.log(seat);
     this.setState({
       selectedSeats: this.seatToggle(seat)
     });
-    //console.log(this.state.selectedSeats);
-  };
-
-  onProcessBooking = () => {
-    this.setState({ processBooking: true });
   };
 
   seatToggle = (seat) => {
@@ -45,11 +38,11 @@ class SessionDetails extends React.Component {
       movieImage,
       sessionDate,
       sessionTime,
-      seats
+      seats,
     } = this.props.sessionInfo;
 
     const selectedSeats = this.state.selectedSeats;
-    const processBooking = this.state.processBooking;
+    const { processBooking, onProcessBooking } = this.props;
 
     return (
       <>
@@ -62,8 +55,11 @@ class SessionDetails extends React.Component {
               sessionTime={sessionTime}
             />
 
-            {this.state.processBooking ? (
-              <BookingForm sessionId={sessionId} selectedSeats={selectedSeats} />
+            {processBooking? (
+              <BookingForm
+                sessionId={sessionId}
+                selectedSeats={selectedSeats}
+              />
             ) : (
               <>
                 <CinemaScreen />
@@ -77,7 +73,7 @@ class SessionDetails extends React.Component {
           </div>
           <BookingDetails
             selectedSeats={selectedSeats}
-            onProcessBooking={this.onProcessBooking}
+            onProcessBooking={onProcessBooking}
             processBooking={processBooking}
           />
         </div>

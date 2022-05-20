@@ -5,6 +5,7 @@ const Constants = require('../Constants');
 const Response = require('../models/Response');
 const MessageConstants = require('../MessageConstants');
 const EmailValidator = require('../utils/EmailValidator');
+const userModel = require("../models/User");
 const EmailInvalid = MessageConstants.EMAIL_INVALID;
 const EmailAlreadyExists = MessageConstants.EMAIL_ALREADY_EXISTS;
 const PasswordInvalid = MessageConstants.PASSWORD_INVALID;
@@ -14,7 +15,7 @@ const UserUpdatingSuccess = MessageConstants.USER_UPDATING_SUCCESS;
 const UserUpdatingFailure = MessageConstants.USER_UPDATING_FAILURE;
 const NoUserJWTFound = MessageConstants.NO_USER_JWT_FOUND;
 
-const getUsers = (userModel) => async (req, res) => {
+const getUsers = async (req, res) => {
   const users = await userModel.find().lean();
 
   if (users && users.length) {
@@ -24,7 +25,7 @@ const getUsers = (userModel) => async (req, res) => {
   return res.send({});
 };
 
-const getUser = (userModel) => async (req, res) => {
+const getUser = async (req, res) => {
   const userId = req.params['userId'];
 
   if (isNumeric(userId)) {
@@ -39,11 +40,11 @@ const getUser = (userModel) => async (req, res) => {
   return res.send({});
 };
 
-const editUser = (userModel) => async (req, res) => {
+const editUser = async (req, res) => {
   const token = req.headers['authorization'];
   const formData = req.body;
 
-  handleUserEdit(userModel, formData, token)
+  handleUserEdit(formData, token)
     .then((result) => {
       return res.send(result);
     })
@@ -52,8 +53,8 @@ const editUser = (userModel) => async (req, res) => {
     });
 };
 
-const handleUserEdit = async (userModel, data, token) => {
-  const errors = await validate(userModel, data);
+const handleUserEdit = async (data, token) => {
+  const errors = await validate(data);
   if (errors.length) {
     return Promise.reject({ errors: errors });
   }
@@ -86,7 +87,7 @@ const handleUserEdit = async (userModel, data, token) => {
   }
 };
 
-const validate = async (userModel, data) => {
+const validate = async (data) => {
   const errors = [];
 
   // #1 Check if email is empty or invalid

@@ -2,9 +2,10 @@ const redisService = require('../services/RedisService');
 const redisClient = redisService.redisClient();
 const Response = require('../models/Response');
 const MessageConstants = require('../MessageConstants');
+const userModel = require("../models/User");
 const TokenInvalid = MessageConstants.AUTHORIZATION_TOKEN_INVALID;
 
-const auth = (userModel) => (req, res) => {
+const auth = (req, res) => {
   const { authorization } = req.headers;
 
   handleAuthorization(authorization)

@@ -38,6 +38,7 @@ channelWrapper.addSetup(function (channel) {
   return Promise.all([
     channel.consume(constants.MESSAGE_QUEUE, (msg) => {
       const { sessionId, movieId } = msg.content;
+
       if (sessionId && movieId) {
         console.log(msg.content);
 

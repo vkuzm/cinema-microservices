@@ -12,7 +12,8 @@ class Session extends React.Component {
 
     this.state = {
       isLoading: true,
-      sessionInfo: {}
+      sessionInfo: {},
+      processBooking: false
     };
   }
 
@@ -35,6 +36,14 @@ class Session extends React.Component {
       .catch((err) => console.log(err));
   };
 
+  onProcessBooking = () => {
+    this.setState({ processBooking: true });
+  };
+
+  goBackToSeats = () => {
+    this.setState({ processBooking: false });
+  };
+
   goBack = () => {
     this.props.history.goBack();
   };
@@ -42,10 +51,10 @@ class Session extends React.Component {
   render() {
     return (
       <div className="session-overflow">
-        <div className="header" onClick={() => this.goBack()}>
+        <div className="header" onClick={() => this.state.processBooking ? this.goBackToSeats() : this.goBack()}>
           <div className="back" />
           <div className="heading">
-            <div>Back to home</div>
+            <div>{this.state.processBooking ? 'Back to seats' : 'Back to home'}</div>
           </div>
           <div className="close" />
         </div>
@@ -53,6 +62,8 @@ class Session extends React.Component {
         <SessionDetailsWithSpinner
           isLoading={this.state.isLoading}
           sessionInfo={this.state.sessionInfo}
+          processBooking={this.state.processBooking}
+          onProcessBooking={this.onProcessBooking}
           {...this.props}
         />
       </div>

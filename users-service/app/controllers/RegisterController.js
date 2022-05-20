@@ -3,6 +3,7 @@ const Response = require('../models/Response');
 const Constants = require('../Constants');
 const MessageConstants = require('../MessageConstants');
 const EmailValidator = require('../utils/EmailValidator');
+const userModel = require("../models/User");
 const EmailInvalid = MessageConstants.EMAIL_INVALID;
 const EmailAlreadyExists = MessageConstants.EMAIL_ALREADY_EXISTS;
 const PasswordInvalid = MessageConstants.PASSWORD_INVALID;
@@ -11,8 +12,8 @@ const NameInvalid = MessageConstants.NAME_INVALID;
 const AgeInvalid = MessageConstants.AGE_INVALID;
 const MongodbError = MessageConstants.MONGODB_ERROR;
 
-const register = (userModel) => (req, res) => {
-  handleSignUp(userModel, req.body)
+const register = (req, res) => {
+  handleSignUp(req.body)
     .then((result) => {
       res.status(201).send(result);
     })
@@ -21,7 +22,7 @@ const register = (userModel) => (req, res) => {
     });
 };
 
-const handleSignUp = async (userModel, data) => {
+const handleSignUp = async (data) => {
   const errors = [];
 
   if (!isNameValid(data.name)) {

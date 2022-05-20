@@ -71,7 +71,7 @@ const App = () => {
           <Route exact path="/upcoming" component={Upcoming} />
           <Route exact path="/top-watched" component={TopWatched} />
           <Route exact path="/discounts" component={Discounts} />
-          <Route exact path="/movie/:movieId" component={Movie} />
+          <Route exact path="/movie/:movieId" component={(props) => <Movie user={user} {...props} />} />
           <Route exact path="/session/:sessionId" component={Session} />
           <Route exact path="/sign-in" component={(props) => <SignIn setSignIn={setSignIn} {...props} />} />
           <Route exact path="/sign-up" component={SignUp} />

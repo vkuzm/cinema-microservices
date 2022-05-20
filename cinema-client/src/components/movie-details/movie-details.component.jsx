@@ -1,41 +1,10 @@
-import React, { useState } from 'react';
 import './movie-details.styles.scss';
 import ScheduleSelectorMovie from '../schedule-selector-movie/schedule-selector-movie.component';
 import ScheduleMovies from '../schedule-movies/schedule-movies.component';
-import FontAwesome from 'react-fontawesome';
-import ApiUrlConstants from '../../ApiUrlConstants';
+import FavoriteButton from '../favorite-button/favorite-button.component';
 import { getAuthToken } from '../../services/Auth';
 
 const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
-  const [favorite, setFavorite] = useState(false);
-
-  const onFavoriteToggle = (movieId) => {
-    setFavorite(!favorite);
-
-    if (movieId) {
-      fetch(ApiUrlConstants.FAVORITES, {
-        method: 'POST',
-        body: JSON.stringify({
-          movieId: movieId
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': getAuthToken(),
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data === 'added') {
-            console.log("added")
-          } else if (data === 'removed') {
-            console.log("removed")
-          } else {
-            console.log("something went wrong")  
-          }
-        })
-    }
-  }
-
   return (
     <div className="movie">
       <ScheduleSelectorMovie schedule={schedule} {...props} />
@@ -46,12 +15,7 @@ const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
             <img src={info.image} alt={info.name} />
 
             { // TODO make redux and check signIn state from App.js}
-              getAuthToken() ?
-                <div className={`favorite ${favorite ? 'active': ''}`} onClick={() => onFavoriteToggle(info.movieId)}>
-                  <FontAwesome className="fas" name="heart" title="Add to your favorite list in order to watch it later" />
-                </div>
-                :
-                null
+              getAuthToken() && <FavoriteButton movieId={info.movieId} user={props.user} />
             }
 
           </div>
@@ -106,14 +70,14 @@ const MovieDetails = ({ info, schedule, recommendations, ...props }) => {
         </div>
       </div>
 
-      {recommendations.length ? (
+      {recommendations.length > 0 && (
         <div className="schedule">
           <div className="wrapper">
             <h2 className="schedule__heading">Watch also</h2>
             <ScheduleMovies movies={recommendations} {...props} />
           </div>
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

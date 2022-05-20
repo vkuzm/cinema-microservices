@@ -17,11 +17,16 @@ services:
       dockerfile: Dockerfile.dev
       context: ./cinema-client
     restart: on-failure
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - /app/node_modules
+      - ./cinema-client:/app
 
   # Users service
   users-service:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./users-service
     restart: on-failure  
     volumes:
@@ -51,7 +56,7 @@ services:
      MONGO_URL: mongo-cinema
      MONGO_PORT: 27017
      SPRING_RABBITMQ_HOST: rabbitmq
-     API_KEY: '' #TMDB API KEY
+     API_KEY: ${TMDB_API_KEY}
 
   # Booking service
   booking-service:

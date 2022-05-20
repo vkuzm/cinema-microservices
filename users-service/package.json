@@ -9,6 +9,7 @@
     "mocha": "^8.2.1",
     "mongoose": "^5.11.7",
     "mongoose-sequence": "^5.3.0",
+    "node-fetch": "^2.6.7",
     "nodemon": "^2.0.6",
     "redis": "^3.0.2",
     "request": "^2.88.2",

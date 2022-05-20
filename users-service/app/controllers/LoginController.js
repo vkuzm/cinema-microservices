@@ -5,12 +5,13 @@ const redisClient = redisService.redisClient();
 const Response = require('../models/Response');
 const Constants = require('../Constants');
 const MessageConstants = require('../MessageConstants');
+const userModel = require("../models/User");
 const EmailPasswordInvalid = MessageConstants.EMAIL_PASSWORD_INVALID;
 
-const login = (userModel) => (req, res) => {
+const login = (req, res) => {
   const loginData = req.body;
 
-  handleSignIn(userModel, loginData)
+  handleSignIn(loginData)
     .then((response) => {
       res.status(201).send(response);
     })
@@ -19,7 +20,7 @@ const login = (userModel) => (req, res) => {
     });
 };
 
-const handleSignIn = async (userModel, data) => {
+const handleSignIn = async (data) => {
   const { email, password } = data;
 
   if (!email || !password) {
