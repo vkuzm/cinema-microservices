@@ -13,22 +13,22 @@ class BookingForm extends React.Component {
       name: {
         value: '',
         required: true,
-        hasError: false
+        isError: false
       },
       phone: {
         value: '',
         required: false,
-        hasError: false
+        isError: false
       },
       email: {
         value: '',
         required: true,
-        hasError: false
+        isError: false
       },
       paymentMethod: {
         value: 'credit_card',
         required: true,
-        hasError: false
+        isError: false
       }
     };
   }
@@ -41,7 +41,7 @@ class BookingForm extends React.Component {
         [target.name]: { ...prevState[target.name], value: target.value }
       };
     });
-  };
+  }
 
   onPaymentChange = (e) => {
     const target = e.target;
@@ -51,45 +51,85 @@ class BookingForm extends React.Component {
         paymentMethod: { ...prevState.paymentMethod, value: target.value }
       };
     });
-  };
+  }
 
-  onOrderSubmit = () => {
+  onOrderSubmit = async () => {
     const { sessionId, selectedSeats, name, phone, email, paymentMethod } = this.state;
 
     if (sessionId) {
-      this.validate('name', name);
-      this.validate('email', email);
-      this.validate('phone', phone);
+      console.log('1')
+      await this.validateFields();
+      console.log('2')
+      console.log(this.state)
 
-      if (this.hasErrors) {
+
+      if (!this.hasErrors) {
         console.log({ sessionId, selectedSeats, name, phone, email, paymentMethod });
-      } else {
-        console.log('Error has occurred');
       }
     }
-  };
+  }
 
-  validate = (fieldName, fieldData) => {
-    this.setState((prevState) => {
-      return {
-        [fieldName]: {
-          ...prevState[fieldName],
-          hasError: this.isNotValidField(fieldName, fieldData)
+  validateFields = () => {
+    for (let fieldName in this.state) {
+      if (this.state.hasOwnProperty(fieldName) && this.state[fieldName]) {
+        this.validateField(fieldName);
+      }
+    }
+  }
+
+  validateField = (fieldName) => {
+    const { value, isRequired } = this.state[fieldName];
+    let isError = false;
+
+    switch (fieldName) {
+      case 'name':
+        if (!this.isNameValid(value)) {
+          isError = true;
         }
-      };
-    });
-  };
+        break;
+      case 'email':
+        if (!EmailValidator.isValid(value)) {
+          isError = true;
+        }
+        break;
+      case 'phone':
+        if (!this.isPhoneValid(value)) {
+          isError = true;
+        }
+        break;
+      default:
+    }
 
-  isNotValidField = (fieldName, fieldData) => {
-    return (
-      (fieldName === 'email' && !EmailValidator.isValid(fieldData.value)) ||
-      (fieldData.required && fieldData.value.length === 0)
-    );
-  };
+    if (!isRequired && value.length === 0) {
+      isError = false;
+    }
+
+    this.updateError(fieldName, isError);
+  }
+
+  updateError = (fieldName, isError) => {
+    this.setState((prevState) => ({
+      [fieldName]: { ...prevState[fieldName], isError }
+    }));
+  }
 
   hasErrors = () => {
-    return this.state.name.hasError || this.state.email.hasError || this.state.phone.hasError;
-  };
+    for (let fieldName in this.state) {
+      if (this.state.hasOwnProperty(fieldName) && this.state[fieldName].isError) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isNameValid = (name) => {
+    return name.length >= 3 && name.length <= 25;
+  }
+
+  isPhoneValid = (phone) => {
+    const re = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    return phone.match(re);
+  }
 
   render() {
     return (
@@ -104,7 +144,7 @@ class BookingForm extends React.Component {
                   <input type="text" name="name" required onChange={this.onInputChange} />
                   <FontAwesome className="fas" name="user" />
                 </div>
-                {this.state.name.hasError ? (
+                {this.state.name.isError ? (
                   <div className="invalid-message">Enter valid name</div>
                 ) : null}
               </div>
@@ -114,7 +154,7 @@ class BookingForm extends React.Component {
                   <input type="email" name="email" required onChange={this.onInputChange} />
                   <FontAwesome className="fas" name="envelope" />
                 </div>
-                {this.state.email.hasError ? (
+                {this.state.email.isError ? (
                   <div className="invalid-message">Enter valid email address</div>
                 ) : null}
               </div>
@@ -124,7 +164,7 @@ class BookingForm extends React.Component {
                   <input type="tel" name="Phone" required onChange={this.onInputChange} />
                   <FontAwesome className="fas" name="phone" />
                 </div>
-                {this.state.phone.hasError ? (
+                {this.state.phone.isError ? (
                   <div className="invalid-message">Enter valid phone</div>
                 ) : null}
               </div>

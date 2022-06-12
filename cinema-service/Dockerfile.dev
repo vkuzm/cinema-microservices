@@ -1,0 +1,9 @@
+FROM gradle:7.1-jdk11
+WORKDIR /app
+COPY . /app
+
+EXPOSE 8082
+EXPOSE 5005
+
+RUN chmod +x start.sh
+CMD ["sh", "start.sh"]

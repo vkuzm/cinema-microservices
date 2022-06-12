@@ -28,8 +28,7 @@ const favoriteStatus = async (req, res) => {
 const getFavorites = async (req, res) => {
   const { userId } = req.body;
 
-  const favorites = await favoriteModel.find({ userId })
-    .select(['userId', 'movieId']);
+  const favorites = await favoriteModel.find({ userId }).select(['userId', 'movieId']);
 
   const favoriteMovies = await Promise.all(favorites.map(async (favorite) => {
     const response = await fetch(`${apiUrl.MOVIES}/${favorite.movieId}`);

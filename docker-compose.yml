@@ -46,9 +46,14 @@ services:
   # Cinema service
   cinema-service:
    build:
-     dockerfile: Dockerfile
+     dockerfile: Dockerfile.dev
      context: ./cinema-service
    restart: on-failure
+   ports:
+     - 5005:5005 #debug port
+   volumes:
+     - ./cinema-service:/app
+     - ./cinema-service/.gradle:/home/gradle/.gradle/
    depends_on:
      - rabbitmq
    environment:
@@ -61,7 +66,7 @@ services:
   # Booking service
   booking-service:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./booking-service
     restart: on-failure  
     volumes:
@@ -69,11 +74,11 @@ services:
       - ./booking-service:/app
     depends_on:
       - rabbitmq
-      - postgres-booking
+      - mongo-booking
     environment:
        SERVER_PORT: 8083
        RABBITMQ_URI: amqp://rabbitmq:5672
-       POSTGRES_URI: postgres://admin:password@postgres-booking:5432/booking
+       MONGO_URI: mongodb://mongo-users:27017
     ports:
       - 9229:9229 #debug port
       - 8083:8083 #app port
@@ -99,22 +104,18 @@ services:
     ports:
       - 27017:27017 # dev purpose
 
-  # Booking service postgress
-  postgres-booking:
-    build:
-      dockerfile: Dockerfile
-      context: ./booking-service/database
-    container_name: postgres-booking
+  # Booking service booking
+  mongo-booking:
+    container_name: mongo-booking
+    image: mongo:4.4.2
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_URL: postgres://admin:password@localhost:5432/booking
-      POSTGRES_DB: booking
-      POSTGRES_HOST: postgres
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    restart: on-failure
     #volumes:
-    #  - ./booking-service/database/data:/var/lib/postgresql/data
+    #  - ./booking-service/data:/data/db
     ports:
-      - 5432:5432 # dev purpose
+      - 27018:27017 # dev purpose
 
   # Users service Redis
   redis-users:

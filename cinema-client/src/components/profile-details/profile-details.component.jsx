@@ -13,7 +13,7 @@ const ProfileDetails = ({ user, favorites }) => {
 
       <br /><br />
       <FavoriteMoviesWithSpinner
-        isLoading={favorites.length == 0}
+        isLoading={favorites.length === 0}
         favorites={favorites}
       />
     </div>

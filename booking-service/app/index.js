@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParse = require('body-parser');
 const cors = require('cors');
 const amqp = require('amqp-connection-manager');
-const knex = require('knex');
+const mongoose = require("mongoose");
 const sessionController = require('./controllers/SessionController');
 
 // Setup app
@@ -16,10 +16,13 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(bodyParse.json());
 
-// Postgress
-const db = knex({
-	client: 'pg',
-	connection: keys.postgressURI
+// MongoDB
+mongoose.connect(keys.mongoURI, {
+  dbName: 'users',
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: true,
 });
 
 // RabbitMQ
@@ -57,8 +60,10 @@ channelWrapper.addSetup(function (channel) {
 
 
 // Controllers
-app.get('/sessions', sessionController.getSessions(db));
-
+app.get('/sessions', sessionController.getSessions);
+app.get('/sessions/:sessionId', sessionController.getSessionById);
+app.post('/sessions', sessionController.addSession);
+app.delete('/sessions/:sessionId', sessionController.removeSession);
 
 // Run server
 app.listen(keys.serverPort, () => {

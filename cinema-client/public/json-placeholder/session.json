@@ -1,5 +1,6 @@
 {
   "sessionId": "312312",
+  "movideId": "100",
   "movieName": "THOR",
   "movieImage": "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
   "sessionDate": "05.01.2021, Tuesday",
@@ -208,6 +209,11 @@
       {
         "seatNumber": "3",
         "price": 50,
+        "type": "vip"
+      },
+      {
+        "seatNumber": "4",
+        "price": 300,
         "type": "vip"
       }
     ]

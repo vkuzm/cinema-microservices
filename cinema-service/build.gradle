@@ -1,0 +1,59 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '2.6.0'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.4.1'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp:2.4.1'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.4.1'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.4.1'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.4.1'
+    implementation 'org.projectlombok:lombok:1.18.16'
+    implementation 'org.modelmapper:modelmapper:2.3.5'
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.vkuzmenko:tmdbapi:1.0.1'
+    implementation 'org.springframework.boot:spring-boot-devtools:2.4.1'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+}
+
+configurations {
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+}
+
+bootRun {
+    systemProperties = System.properties
+}
+
+group = 'com.service'
+version = '0.0.1-SNAPSHOT'
+description = 'movies'
+java.sourceCompatibility = JavaVersion.VERSION_1_8
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
