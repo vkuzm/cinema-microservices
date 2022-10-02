@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './favorite-button.styles.scss';
 import FontAwesome from 'react-fontawesome';
 import { getAuthToken } from '../../services/Auth';
-import ApiUrl from '../../ApiUrlConstants';
+import Api from '../../services/Api';
 
 const FavoriteButton = ({ movieId, user }) => {
   const [favorite, setFavorite] = useState(false);
@@ -10,18 +10,7 @@ const FavoriteButton = ({ movieId, user }) => {
 
   const onFavoriteChange = (movieId) => {
     if (movieId) {
-      fetch(ApiUrl.FAVORITES_CHANGE, {
-        method: 'POST',
-        body: JSON.stringify({
-          userId: user.userId,
-          movieId: movieId
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token,
-        }
-      })
-        .then((res) => res.json())
+      Api.toggleFavorite(user.userId, movieId)
         .then((data) => {
           setFavorite(data.status);
         });
@@ -29,22 +18,11 @@ const FavoriteButton = ({ movieId, user }) => {
   }
 
   useEffect(() => {
-    fetch(ApiUrl.FAVORITES_STATUS, {
-      method: 'POST',
-      body: JSON.stringify({
-        userId: user.userId,
-        movieId: movieId
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token,
-      }
-    })
-      .then((res) => res.json())
+    Api.isFavorite(user.userId, movieId)
       .then((data) => {
         setFavorite(data.status);
       });
-  });
+  }, [user, movieId]);
 
   return (
     <div
@@ -60,4 +38,4 @@ const FavoriteButton = ({ movieId, user }) => {
   );
 }
 
-export default FavoriteButton;
+export default React.memo(FavoriteButton);

@@ -37,9 +37,9 @@ app.post('/login', loginController.login);
 app.post('/register', registerController.register);
 app.post('/logout', auth.requireAuth, logoutController.logOut);
 app.post('/auth', authController.auth);
-app.post('/favorites', auth.requireAuth, favoriteController.getFavorites);
 app.post('/favorites/change', auth.requireAuth, favoriteController.favoriteChange);
-app.post('/favorites/status', auth.requireAuth, favoriteController.favoriteStatus);
+app.get('/favorites/userId/:userId/', auth.requireAuth, favoriteController.getFavorites);
+app.get('/favorites/status/userId/:userId/movieId/:movieId', auth.requireAuth, favoriteController.favoriteStatus);
 
 // Run server
 app.listen(keys.serverPort, () => {

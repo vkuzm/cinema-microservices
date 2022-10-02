@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ApiUrl from '../../ApiUrlConstants';
 import ProfileDetails from '../../components/profile-details/profile-details.component';
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
-import { getAuthToken } from '../../services/Auth';
+import Api from '../../services/Api';
 
 const ProfileDetailsWithSpinner = WithSpinner(ProfileDetails);
 
@@ -11,27 +11,17 @@ const Profile = ({ user }) => {
 
   useEffect(() => {
     if (user && user.userId) {
-      fetch(ApiUrl.FAVORITES, {
-        method: 'POST',
-        body: JSON.stringify({
-          userId: user.userId
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': getAuthToken(),
-        }
-      })
-        .then((res) => res.json())
+      Api.getFavorites(user.userId)
         .then((favorites) => {
           setFavorites(favorites);
         });
     }
-  }, []);
+  }, [user]);
 
   return (
-    <ProfileDetailsWithSpinner 
+    <ProfileDetailsWithSpinner
       isLoading={!user}
-      user={user} 
+      user={user}
       favorites={favorites}
     />
   );

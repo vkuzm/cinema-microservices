@@ -1,39 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ApiUrls from '../../ApiUrlConstants';
 import MoviesList from '../../components/movie-list/movie-list.component';
 import WithSpinnerWrapper from '../../components/with-spinner/with-spinner-wrapper.component';
 
-class TopWatched extends React.Component {
-  constructor(props) {
-    super(props);
+const TopWatched = () => {
+  const [topWatched, setTopWatched] = useState([]);
 
-    this.state = {
-      isLoading: true,
-      topWatched: []
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     fetch(ApiUrls.TOP_WATCHED)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ topWatched: data }, () => {
-          this.setState({ isLoading: false });
-        });
+        setTopWatched(data);
       })
       .catch((err) => console.log(err));
-  }
+  }, []);
 
-  render() {
-    return (
-      <WithSpinnerWrapper isLoading={this.state.isLoading}>
-        <div className="wrapper page">
-          <h1>Top watched</h1>
-          <MoviesList movies={this.state.topWatched} />
-        </div>
-      </WithSpinnerWrapper>
-    );
-  }
+  return (
+    <WithSpinnerWrapper isLoading={topWatched.length === 0}>
+      <div className="wrapper page">
+        <h1>Top watched</h1>
+        <MoviesList movies={topWatched} />
+      </div>
+    </WithSpinnerWrapper>
+  );
 }
 
 export default TopWatched;

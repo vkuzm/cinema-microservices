@@ -19,14 +19,14 @@ const favoriteChange = async (req, res) => {
 };
 
 const favoriteStatus = async (req, res) => {
-  const { userId, movieId } = req.body;
+  const { userId, movieId } = req.params;
 
   const status = await favoriteModel.exists({ userId, movieId });
   return res.send({ status: status });
 };
 
 const getFavorites = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
   const favorites = await favoriteModel.find({ userId }).select(['userId', 'movieId']);
 

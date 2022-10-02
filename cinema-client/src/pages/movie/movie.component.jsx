@@ -1,50 +1,38 @@
-import React from 'react';
-import './movie.styles.scss';
+import React, { useEffect, useState } from 'react';
 import ApiUrls from '../../ApiUrlConstants';
 import MovieDetails from '../../components/movie-details/movie-details.component';
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
+import './movie.styles.scss';
 
 const MovieDetailsWithSpinner = WithSpinner(MovieDetails);
 
-class Movie extends React.Component {
-  constructor(props) {
-    super(props);
+const Movie = (props) => {
+  const [movieData, setMovieData] = useState({});
 
-    this.state = {
-      isLoading: true,
-      movieData: {}
-    };
-  }
-
-  componentDidMount() {
-    const match = this.props.match;
-    const movieId = Number.parseInt(match.params.movieId);
+  useEffect(() => {
+    const movieId = Number.parseInt(props.match.params.movieId);
 
     if (movieId && movieId > 0) {
-        fetch(`${ApiUrls.MOVIES}/${movieId}`)
-          .then((res) => res.json())
-          .then((data) => {
-            this.setState({ movieData: data }, () => {
-              this.setState({ isLoading: false });
-            });
-          })
-          .catch((err) => console.log(err));
-        }
-  }
+      fetch(`${ApiUrls.MOVIES}/${movieId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setMovieData(data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
 
-  render() {
-    const info = this.state.movieData;
-
-    return (
+  return (
+    <div>
       <MovieDetailsWithSpinner
-        isLoading={this.state.isLoading}
-        info={info}
-        schedule={info.schedule}
-        recommendations={info.recommendations}
-        {...this.props}
+        isLoading={!movieData.name}
+        info={movieData}
+        schedule={movieData.schedule}
+        recommendations={movieData.recommendations}
+        {...props}
       />
-    );
-  }
+    </div>
+  );
 }
 
-export default Movie;
+export default React.memo(Movie, (prevProps, currProps) => prevProps.user === currProps.user);

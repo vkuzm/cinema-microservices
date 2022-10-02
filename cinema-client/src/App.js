@@ -45,7 +45,7 @@ const App = () => {
           console.log(err);
         })
     }
-  });
+  }, [signIn]);
 
   const signOut = () => {
     removeAuthToken();
@@ -71,11 +71,11 @@ const App = () => {
           <Route exact path="/upcoming" component={Upcoming} />
           <Route exact path="/top-watched" component={TopWatched} />
           <Route exact path="/discounts" component={Discounts} />
-          <Route exact path="/movie/:movieId" component={(props) => <Movie user={user} {...props} />} />
-          <Route exact path="/session/:sessionId" component={Session} />
-          <Route exact path="/sign-in" component={(props) => <SignIn setSignIn={setSignIn} {...props} />} />
+          <Route exact path="/movie/:movieId" render={(props) => <Movie user={user} {...props} />} />
+          <Route exact path="/session/:sessionId" render={Session} />
+          <Route exact path="/sign-in" render={(props) => <SignIn setSignIn={setSignIn} {...props} />} />
           <Route exact path="/sign-up" component={SignUp} />
-          <Route exact path="/profile" component={() => <Profile user={user} />} />
+          <Route exact path="/profile" render={() => <Profile user={user} />} />
         </Switch>
       </section>
       <Footer user={user} signOut={signOut} />

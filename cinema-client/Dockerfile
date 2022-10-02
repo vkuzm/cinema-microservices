@@ -2,7 +2,7 @@ FROM node:16-alpine as builder
 WORKDIR '/app'
 COPY ./package.json ./
 RUN apk update && \
-	apk add python2 build-base gcc && \
+	apk add python3 build-base gcc && \
 	npm install
 COPY . .
 RUN npm run build
